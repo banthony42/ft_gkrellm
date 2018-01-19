@@ -111,15 +111,21 @@ void ram_info_module()
     uint64_t memsize = 0;
     size_t size = sizeof(memsize);
 
-    mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
+    mach_msg_type_number_t count = sizeof(vm_statistics_data_t) / sizeof(integer_t);//HOST_VM_INFO_COUNT;
     vm_statistics_data_t vmstat;
 
     double wired = 0;
     double active = 0;
     double inactive = 0;
     double free = 0;
-    double percentage = 0;
 
+    double percentage = 0;
+    natural_t mem_unused;
+    natural_t mem_used;
+    natural_t mem_wired;
+
+    vm_size_t pagesize;
+    host_page_size(mach_host_self(), &pagesize);
     try
     {
         if (sysctlbyname("hw.memsize", &memsize, &size, 0, 0) < 0)
@@ -127,22 +133,39 @@ void ram_info_module()
         if(KERN_SUCCESS != host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count))
             throw std::exception();
 
+        // BRUT
         wired = vmstat.wire_count;
         active = vmstat.active_count;
         inactive = vmstat.inactive_count;
         free = vmstat.free_count;
+
+        //CALCUL
         percentage = active / (free + active) * 100.0;
+        mem_used = ((vmstat.active_count + vmstat.inactive_count + vmstat.wire_count) * pagesize) / (1024 * 1024);
+
+        mem_unused = (vmstat.free_count * pagesize)  / (1024*1024);
+        mem_wired = static_cast<int>((wired * pagesize)/ (1024*1024));
+
     }
     catch (std::exception const &e)
     {
         std::cout << "ERROR_RAM_INFO:" << e.what() << std::endl;
     }
+
+    std::cout << "--------VALEUR BRUT------------ " <<std::endl;
     std::cout << "TOTAL_RAM: " << memsize << std::endl;
     std::cout << "wired : " << wired << std::endl;          //The number of pages that are wired in memory and cannot be paged out.
     std::cout << "active : " << active << std::endl;        //The total number of pages currently in use and pageable.
     std::cout << "inactive : " << inactive << std::endl;    //The number of inactive pages.
     std::cout << "free : " << free << std::endl;            //The total number of free pages in the system.
+
+    std::cout << "--------CALCUL------------ " <<std::endl;
     std::cout << "percentage: " << percentage << std::endl;
+    std::cout << "wired : " << mem_wired << "M" << std::endl; //calcul OK similaire a top (wired)
+    std::cout << "unused : " << mem_unused << "M" << std::endl; // calcul OK similaire a valeur de top (memoire unused)
+    std::cout << "used : " << mem_used<< "M" << std::endl; // pas tout a fait exact
+
+
 }
 
 int main(void)
