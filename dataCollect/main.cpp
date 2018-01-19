@@ -20,6 +20,8 @@
 
 #include <ctime>
 #include <time.h>
+#include <mach/mach_types.h>
+#include <mach/mach_host.h>
 
 #define HOST_NAME_MAX 256      //sensé etre definit dans #include <limits.h>
 #define LOGIN_NAME_MAX 256     //senś etre definit dans #include <limits.h>
@@ -106,23 +108,41 @@ void cpu_info_module()
 
 void ram_info_module()
 {
-    long page_size = 0;
     uint64_t memsize = 0;
     size_t size = sizeof(memsize);
+
+    mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
+    vm_statistics_data_t vmstat;
+
+    double wired = 0;
+    double active = 0;
+    double inactive = 0;
+    double free = 0;
+    double percentage = 0;
 
     try
     {
         if (sysctlbyname("hw.memsize", &memsize, &size, 0, 0) < 0)
             throw std::exception();
-        if ((page_size = sysconf(_SC_PAGE_SIZE)) < 0)
+        if(KERN_SUCCESS != host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count))
             throw std::exception();
+
+        wired = vmstat.wire_count;
+        active = vmstat.active_count;
+        inactive = vmstat.inactive_count;
+        free = vmstat.free_count;
+        percentage = active / (free + active) * 100.0;
     }
     catch (std::exception const &e)
     {
         std::cout << "ERROR_RAM_INFO:" << e.what() << std::endl;
     }
     std::cout << "TOTAL_RAM: " << memsize << std::endl;
-    std::cout << "PAGE_SIZE: " << page_size << std::endl;
+    std::cout << "wired : " << wired << std::endl;          //The number of pages that are wired in memory and cannot be paged out.
+    std::cout << "active : " << active << std::endl;        //The total number of pages currently in use and pageable.
+    std::cout << "inactive : " << inactive << std::endl;    //The number of inactive pages.
+    std::cout << "free : " << free << std::endl;            //The total number of free pages in the system.
+    std::cout << "percentage: " << percentage << std::endl;
 }
 
 int main(void)
