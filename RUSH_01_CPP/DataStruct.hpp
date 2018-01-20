@@ -6,7 +6,7 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:40:28 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/20 15:35:15 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/20 16:05:56 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class       DataStruct {
     ~DataStruct(void);
     DataStruct &    operator=(DataStruct const & rhs);
 
-    void            *getDataAddr(void) const;
+    void const      *getDataAddr(void) const;
     E_VarType       getDataType(void) const;
     E_DisplayType   getDisplayType(void) const;
 

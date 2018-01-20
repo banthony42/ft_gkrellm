@@ -6,7 +6,7 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 13:18:18 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/20 14:54:33 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/20 16:14:02 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ AModule const &     AModule::operator=(AModule const & rhs) {
     return (rhs);
 }
 
-bool                AModule::_compareOrder (const AModule & first, const AModule & second){
+bool                AModule::compareOrder (const AModule & first, const AModule & second){
     return (first.getPosition() < second.getPosition());
 }
 
@@ -46,15 +46,14 @@ const char * AModule::NothingToUpDateException::what() const throw() {
     return ("This object can't update any value.");
 }
 
-void                AModule::sort(std::list<AModule> modules) {
-    modules.sort(_compareOrder);
-}
-
 void                AModule::updateSysInfo(void) {
     throw NothingToUpDateException();
 }
 
 DataStruct          AModule::getData(unsigned int n) {
+    unsigned int    val = n;
+    if (val == n)
+        val++;
     throw NothingToGetException();
     return (DataStruct());
 }

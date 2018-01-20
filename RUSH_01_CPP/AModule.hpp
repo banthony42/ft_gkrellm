@@ -6,7 +6,7 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 13:10:41 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/20 15:12:40 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/20 16:14:01 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ class AModule : public IMonitorModule {
     std::string _name;
     int         _position;
     int         _len;
-    
-    bool        _compareOrder(const AModule& first, const AModule& second);
 
     protected:
     
@@ -37,6 +35,8 @@ class AModule : public IMonitorModule {
     AModule(bool isActive, int ID, std::string name, int position, int len);
     virtual     ~AModule(void);
 
+    bool        compareOrder(const AModule& first, const AModule& second);
+
     class NothingToUpDateException : public std::exception {
         public:
             virtual const char * what() const throw();
@@ -46,8 +46,6 @@ class AModule : public IMonitorModule {
         public:
             virtual const char * what() const throw();
     };
-
-    void        sort(std::list<AModule> modules);
 
     virtual void updateSysInfo(void);
     virtual DataStruct getData(unsigned int n);
