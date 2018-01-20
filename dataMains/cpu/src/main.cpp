@@ -6,34 +6,47 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 18:33:29 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 12:13:27 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 13:18:41 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//sysctl includes start
 #include <sys/types.h>
 #include <sys/sysctl.h>
-#include <iostream>
+//sysctl includes stop
 
-//cpu Activity Start
+//cpu Activity includes Start
 #include <sys/sysctl.h>
 #include <sys/types.h>
 #include <mach/mach_host.h>
 #include <stdlib.h>
-//cpu Activity End
+//cpu Activity includes End
+
+//Boottime include start
+#include <time.h>
+//Boottime include End
+
+#include <iostream>
 
 int		main(void)
 {
 	/*Important Start*/
-	uint64_t	cpuFrequency	= -1;
-	int			nbCores			= -1;
-	int			activeCores		= -1;
-	uint32_t	cpuType			= -1;
-	size_t		cpuUsed;
-	size_t		totalCpu;
-	size_t		cpuAvailable;
-	uint64_t	physicalMem;
-	char		cpuModel[100];
-	char		cpuName[50];
+	uint64_t		cpuFrequency	= -1;
+	int				nbCores			= -1;
+	int				activeCores		= -1;
+	uint32_t		cpuType			= -1;
+	size_t			cpuUsed			= -1;
+	size_t			totalCpu		= -1;
+	size_t			cpuAvailable	= -1;
+	uint64_t		physicalMem		= -1;
+	uint64_t		l3CacheSize		= -1;
+	uint64_t		l2CacheSize		= -1;
+	uint64_t		l1dCacheSize	= -1;
+	uint64_t		l1iCacheSize	= -1;
+	char			cpuModel[100];
+	char			cpuName[50];
+	struct timeval	boottime;
+
 	/*CPU Activity Start*/
 	natural_t						cpuCount;
 	processor_cpu_load_info_t		cpuInfo;
@@ -61,11 +74,16 @@ int		main(void)
 	size_t sizeCpuFamily	= sizeof(cpuFamily);
 	size_t sizeMinCoreClock	= sizeof(minCoreClock);
 	size_t sizeMaxCoreClock	= sizeof(maxCoreClock);
-	size_t sizeCan64bits	= sizeof(maxCoreClock);
+	size_t sizeCan64bits	= sizeof(int);
+	size_t sizel1iCacheSize	= sizeof(l1iCacheSize);
+	size_t sizel1dCacheSize	= sizeof(l1dCacheSize);
+	size_t sizel2CacheSize	= sizeof(l2CacheSize);
+	size_t sizel3CacheSize	= sizeof(l3CacheSize);
 	size_t sizeCpuType		= sizeof(cpuType);
 	size_t sizeCpuModel		= sizeof(char) * 100;
 	size_t sizeCpuName		= sizeof(char) * 50;
 	size_t sizePhysicalMem	= sizeof(uint64_t);
+	size_t sizeBoottime		= sizeof(boottime);
 	//La taille des données stockées dans le pointeur seront dans leurs sizes respectives
 	/*Utility pointers*/
 	//int	i = 0;
@@ -93,6 +111,16 @@ int		main(void)
 		std::cout << "cpuName fail" << std::endl;
 	if (sysctlbyname("hw.memsize", &physicalMem, &sizePhysicalMem, NULL, 0) < 0)
 		std::cout << "Physical memory" << std::endl;
+	if (sysctlbyname("hw.l1icachesize", &l1iCacheSize, &sizel1iCacheSize, NULL, 0) < 0)
+		l1iCacheSize = -1;
+	if (sysctlbyname("hw.l1dcachesize", &l1dCacheSize, &sizel1dCacheSize, NULL, 0) < 0)
+		l1dCacheSize = -1;
+	if (sysctlbyname("hw.l2cachesize", &l2CacheSize, &sizel2CacheSize, NULL, 0) < 0)
+		l2CacheSize = -1;
+	if (sysctlbyname("hw.l3cachesize", &l3CacheSize, &sizel3CacheSize, NULL, 0) < 0)
+		l3CacheSize = -1;
+	if (sysctlbyname("kern.boottime", &boottime, &sizeBoottime, NULL, 0) < 0)
+		l3CacheSize = -1;
 	/*Syscalls End*/
 
 	/*CPU activity Syscall Start*/
@@ -113,24 +141,30 @@ int		main(void)
 	/*CPU activity Syscall End*/
 
 	/*Test printing Start*/
+	std::cout << "---IMPORTANT---" << std::endl;
 	std::cout << "(uint64_t)\tcpuFrequency:\t\t" << cpuFrequency << std::endl;
 	std::cout << "(int)\t\tnbCores:\t\t" << nbCores << std::endl;
 	std::cout << "(int)\t\tactiveCores:\t\t" << activeCores << std::endl;
 	std::cout << "(uint34_t)\tcpuType:\t\t" << cpuType << std::endl;
 	std::cout << "(char*)\t\tcpuName:\t\t" << cpuName << std::endl;
 	std::cout << "(int)\t\tPhysical Memory:\t" << physicalMem << std::endl;
-
-	std::cout << "(int)\t\tcpuFamily:\t\t" << cpuFamily << std::endl;
-	std::cout << "(uint64_t)\tmaxCoreClock:\t\t" << maxCoreClock << std::endl;
-	std::cout << "(uint64_t)\tminCoreClock:\t\t" << minCoreClock << std::endl;
-	std::cout << "(bool)\t\t64bits Support ?:\t" << can64bits << std::endl;
-	std::cout << "(char*)\t\tcpuModel:\t\t" << cpuModel << std::endl;
-
+	std::cout << "(char*)\t\tBootTime(epoch):\t" << boottime.tv_sec * 1000 << std::endl;
 	std::cout << "(size_t)\tCpuTotal:\t\t" << totalCpu << std::endl;
 	std::cout << "(size_t)\tCpuWork:\t\t" << cpuAvailable << std::endl;
 	//pour avoir le couUsage a chaque tick
 	//((nouvelle valueur de cpuAvailable - ancienne valuer de cpu available) / (nouvelle valeur de totalCpu - ancienne valeur de totalCpu)) * 100
 	// == Pourcentage du CPU en utilisation
+
+	std::cout << std::endl << "---BONUS---" << std::endl;
+	std::cout << "(int)\t\tcpuFamily:\t\t" << cpuFamily << std::endl;
+	std::cout << "(uint64_t)\tmaxCoreClock:\t\t" << maxCoreClock << std::endl;
+	std::cout << "(uint64_t)\tminCoreClock:\t\t" << minCoreClock << std::endl;
+	std::cout << "(bool)\t\t64bits Support ?:\t" << can64bits << std::endl;
+	std::cout << "(char*)\t\tcpuModel:\t\t" << cpuModel << std::endl;
+	std::cout << "(uint64_t)\tl1iCacheSize:\t\t" << l1iCacheSize << std::endl;
+	std::cout << "(uint64_t)\tl1dCacheSize:\t\t" << l1dCacheSize << std::endl;
+	std::cout << "(uint64_t)\tl2CacheSize:\t\t" << l2CacheSize << std::endl;
+	std::cout << "(uint64_t)\tl3CacheSize:\t\t" << l3CacheSize << std::endl;
 
 	/*Test printing End*/
 	return (0);
