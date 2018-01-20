@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 18:33:29 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 13:18:41 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 14:32:46 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		main(void)
 	size_t			cpuUsed			= -1;
 	size_t			totalCpu		= -1;
 	size_t			cpuAvailable	= -1;
-	uint64_t		physicalMem		= -1;
 	uint64_t		l3CacheSize		= -1;
 	uint64_t		l2CacheSize		= -1;
 	uint64_t		l1dCacheSize	= -1;
@@ -82,7 +81,6 @@ int		main(void)
 	size_t sizeCpuType		= sizeof(cpuType);
 	size_t sizeCpuModel		= sizeof(char) * 100;
 	size_t sizeCpuName		= sizeof(char) * 50;
-	size_t sizePhysicalMem	= sizeof(uint64_t);
 	size_t sizeBoottime		= sizeof(boottime);
 	//La taille des données stockées dans le pointeur seront dans leurs sizes respectives
 	/*Utility pointers*/
@@ -109,8 +107,6 @@ int		main(void)
 		std::cout << "cpuModel fail" << std::endl;
 	if (sysctlbyname("machdep.cpu.brand_string", &cpuName, &sizeCpuName, NULL, 0) < 0)
 		std::cout << "cpuName fail" << std::endl;
-	if (sysctlbyname("hw.memsize", &physicalMem, &sizePhysicalMem, NULL, 0) < 0)
-		std::cout << "Physical memory" << std::endl;
 	if (sysctlbyname("hw.l1icachesize", &l1iCacheSize, &sizel1iCacheSize, NULL, 0) < 0)
 		l1iCacheSize = -1;
 	if (sysctlbyname("hw.l1dcachesize", &l1dCacheSize, &sizel1dCacheSize, NULL, 0) < 0)
@@ -147,7 +143,6 @@ int		main(void)
 	std::cout << "(int)\t\tactiveCores:\t\t" << activeCores << std::endl;
 	std::cout << "(uint34_t)\tcpuType:\t\t" << cpuType << std::endl;
 	std::cout << "(char*)\t\tcpuName:\t\t" << cpuName << std::endl;
-	std::cout << "(int)\t\tPhysical Memory:\t" << physicalMem << std::endl;
 	std::cout << "(char*)\t\tBootTime(epoch):\t" << boottime.tv_sec * 1000 << std::endl;
 	std::cout << "(size_t)\tCpuTotal:\t\t" << totalCpu << std::endl;
 	std::cout << "(size_t)\tCpuWork:\t\t" << cpuAvailable << std::endl;
