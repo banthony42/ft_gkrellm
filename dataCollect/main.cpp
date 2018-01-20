@@ -108,22 +108,23 @@ void cpu_info_module()
 
 void ram_info_module()
 {
-    uint64_t memsize = 0;
-    size_t size = sizeof(memsize);
-
     mach_msg_type_number_t count = sizeof(vm_statistics_data_t) / sizeof(integer_t);//HOST_VM_INFO_COUNT;
     vm_statistics_data_t vmstat;
 
+    //VALEUR BRUT
+    uint64_t memsize = 0;
     double wired = 0;
     double active = 0;
     double inactive = 0;
     double free = 0;
 
-    double percentage = 0;
+    //POUR CALCUL
+    natural_t mem_size;
     natural_t mem_unused;
     natural_t mem_used;
     natural_t mem_wired;
 
+    size_t size = sizeof(memsize);
     vm_size_t pagesize;
     host_page_size(mach_host_self(), &pagesize);
     try
@@ -140,48 +141,49 @@ void ram_info_module()
         free = vmstat.free_count;
 
         //CALCUL
-        percentage = active / (free + active) * 100.0;
-        mem_used = ((vmstat.active_count + vmstat.inactive_count + vmstat.wire_count) * pagesize) / (1024 * 1024);
-
+        mem_used = (memsize - (free * pagesize)) / (1024 * 1024);//((vmstat.active_count + vmstat.inactive_count + vmstat.wire_count) * pagesize) / (1024 * 1024);
         mem_unused = (vmstat.free_count * pagesize)  / (1024*1024);
         mem_wired = static_cast<int>((wired * pagesize)/ (1024*1024));
-
+        mem_size = memsize / (1024 * 1024);
     }
     catch (std::exception const &e)
     {
         std::cout << "ERROR_RAM_INFO:" << e.what() << std::endl;
     }
 
-    std::cout << "--------VALEUR BRUT------------ " <<std::endl;
+    std::cout << "//Valeurs Brut:\\\\" <<std::endl;
     std::cout << "TOTAL_RAM: " << memsize << std::endl;
     std::cout << "wired : " << wired << std::endl;          //The number of pages that are wired in memory and cannot be paged out.
     std::cout << "active : " << active << std::endl;        //The total number of pages currently in use and pageable.
     std::cout << "inactive : " << inactive << std::endl;    //The number of inactive pages.
     std::cout << "free : " << free << std::endl;            //The total number of free pages in the system.
 
-    std::cout << "--------CALCUL------------ " <<std::endl;
-    std::cout << "percentage: " << percentage << std::endl;
-    std::cout << "wired : " << mem_wired << "M" << std::endl; //calcul OK similaire a top (wired)
-    std::cout << "unused : " << mem_unused << "M" << std::endl; // calcul OK similaire a valeur de top (memoire unused)
-    std::cout << "used : " << mem_used<< "M" << std::endl; // pas tout a fait exact
-
-
+    std::cout << "//Valeurs similaire a top:\\\\" <<std::endl;
+    std::cout << "TOTAL_RAM: " << mem_size << "M" << std::endl;
+    std::cout << "PhysMem: " << mem_used << "M used";
+    std::cout << " ("  << mem_wired << "M wired), ";
+    std::cout << mem_unused << "M unused." << std::endl;
 }
+
 
 int main(void)
 {
-
+    std::cout << "-----------USER-HOST------------ " <<std::endl;
     host_user_module();
     std::cout << std::endl;
 
+    std::cout << "-----------OS_INFO------------ " <<std::endl;
     OS_info_module();
     std::cout << std::endl;
 
+    std::cout << "-----------DATE_TIME------------ " <<std::endl;
     date_time_module();
     std::cout << std::endl;
 
+    std::cout << "-----------CPU_INFO------------ " <<std::endl;
     cpu_info_module();
     std::cout << std::endl;
 
+    std::cout << "-----------RAM-INFO------------ " <<std::endl;
     ram_info_module();
 }
