@@ -48,7 +48,6 @@ class RamModule: public AModule {
     public:
     RamModule(bool isActive, int ID, std::string name, int position, int len);
     virtual ~RamModule(void);
-
     virtual void        updateSysInfo(void);
     virtual DataStruct  const getData(unsigned int n) const;
 

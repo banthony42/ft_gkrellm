@@ -182,7 +182,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	if (n == 0)
 	{
 		uint64_t *ptr = new uint64_t;
-		*ptr = this->cpuFrequency;
+		*ptr = this->_cpuFrequency;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);

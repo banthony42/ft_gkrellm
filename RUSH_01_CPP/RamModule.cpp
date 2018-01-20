@@ -175,6 +175,8 @@ DataStruct const RamModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 10) {
+        if (this->_swapusage == 0)
+            return (dataToReturn);
         xsw_usage *ptr = new xsw_usage[sizeof(this->_swapusage)];
         *ptr = *(this->_swapusage);
         dataToReturn.setDataAddr(ptr);
@@ -183,6 +185,8 @@ DataStruct const RamModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 11) {
+        if (this->_vmstat == 0)
+            return (dataToReturn);
         vm_statistics64_data_t *ptr = new vm_statistics64_data_t[sizeof(this->_vmstat)];
         *ptr = *(this->_vmstat);
         dataToReturn.setDataAddr(ptr);
