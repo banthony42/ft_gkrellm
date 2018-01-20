@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 22:14:14 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 22:18:16 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,10 +185,6 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
-
-/*		const void *tr = dataToReturn.getDataAddr();
-		uint64_t test2 = *(reinterpret_cast<uint64_t const *>(tr));
-		std::cout << test2 << std::endl;*/
 		return (dataToReturn);
 	}
 	else if (n == 1)
@@ -451,3 +447,8 @@ void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = 
 	d18 = io.getData(18);
 	return (0);
 }*/
+/*
+	const void *tr = dataToReturn.getDataAddr();
+	uint64_t test2 = *(reinterpret_cast<uint64_t const *>(tr));
+	std::cout << test2 << std::endl;
+*/
