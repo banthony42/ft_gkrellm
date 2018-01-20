@@ -93,7 +93,7 @@ int		main(void)
 	std::cout << "(uint64_t)\t\tWired Memory:\t\t" << mem_wired << "(Mbytes)\t- Dispo dans cmd top" << std::endl;
 	std::cout << "(uint64_t)\t\tUnused Memory:\t\t" << mem_unused << "(Mbytes)\t- Dispo dans cmd top" << std::endl;
 	std::cout << "-------------------TRAITEMENT-INFO-ACTIVITY-MONITOR--------------------" << std::endl;
-	std::cout << "(double)\t\tPhysical Memory:\t" << mem_size << "(Mbytes)" << std::endl;
+	std::cout << "(uint64_t)\t\tPhysical Memory:\t" << mem_size << "(Mbytes)" << std::endl;
 	std::cout << "(double)\t\tMemory Used:\t\t" << a_mem_used << "(Mbytes)" << std::endl;
 	std::cout << "(double)\t\tCached Files:\t\t" << a_file_cache << "(Mbytes)" << std::endl;
 	std::cout << "(double)\t\tSwap Used:\t\t" << static_cast<double>(static_cast<double>(swapusage.xsu_used)  / (1024 * 1024))<< "(Mbytes)" << std::endl;
