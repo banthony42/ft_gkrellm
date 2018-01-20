@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:01:52 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 20:27:27 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 21:42:23 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@
 # include "AModule.hpp"
 # include <sys/types.h>
 # include <sys/sysctl.h>
-# include <sys/sysctl.h>
-# include <sys/types.h>
 # include <mach/mach_host.h>
 # include <stdlib.h>
 # include <time.h>
 # include <cstring>
-# include <new>
 
 class CpuModule : public AModule {
 	private:

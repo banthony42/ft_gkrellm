@@ -6,14 +6,14 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 21:22:18 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 21:48:53 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "CpuModule.hpp"
 #include <iostream>
 
-CpuModule::CpuModule(void) :
+CpuModule::CpuModule(void) : AModule(),
 	_cpuFrequency(-1),
 	_nbCores(-1),
 	_activeCores(-1),
@@ -182,8 +182,6 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	if (n == 0)
 	{
 		uint64_t *ptr = new uint64_t;
-
-		*ptr = this->_cpuFrequency;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
@@ -287,7 +285,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		if (this->_cpuModel == NULL)
 			return (dataToReturn);
-		char *ptr = new char[sizeof(this->_cpuModel)];
+		char *ptr = new char[std::strlen(this->_cpuModel) * sizeof(char)];
 		std::cout << this->_cpuModel << std::endl;
 		std::strcpy(ptr, this->_cpuModel);
 		dataToReturn.setDataAddr(&ptr);
@@ -297,7 +295,9 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 12)
 	{
-		char *ptr = new char(sizeof(this->_cpuName));
+		if (this->_cpuName == NULL)
+			return (dataToReturn);
+		char *ptr = new char[std::strlen(this->_cpuName) * sizeof(char)];
 		std::strcpy(ptr, this->_cpuName);
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(CHAR_PTR);
@@ -409,8 +409,8 @@ void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = 
 
 int		main(void)
 {
-	CpuModule	io;
-	DataStruct	d0 = io.getData(0);
+	CpuModule	io(true, 0, "aiou", 0, 0);
+	DataStruct	d0;
 	DataStruct	d1;
 	DataStruct	d2;
 	DataStruct	d3;
@@ -430,7 +430,7 @@ int		main(void)
 	DataStruct	d17;
 	DataStruct	d18;
 
-	io.updateSysInfo();
+	//io.updateSysInfo();
 	d0 = io.getData(0);
 	d1 = io.getData(1);
 	d2 = io.getData(2);
