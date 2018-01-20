@@ -6,12 +6,12 @@
 /*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:20 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/20 22:24:23 by jpiniau          ###   ########.fr       */
+/*   Updated: 2018/01/20 22:49:41 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NCURSESGRAPHICAL
-# define NCURSESGRAPHICAL
+#ifndef NCURSESGRAPHICAL_HPP
+# define NCURSESGRAPHICAL_HPP
 
 //#include "AGraphical.hpp"
 #include <ncurses.h>
