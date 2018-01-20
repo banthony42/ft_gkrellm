@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 21:16:54 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 21:20:37 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,3 +412,50 @@ void		CpuModule::setTotalUser(size_t totalUser)			{ this->_totalUser = totalUser
 void		CpuModule::setTotalIdle(size_t totalIdle)			{ this->_totalIdle = totalIdle; }
 void		CpuModule::setMaxCoreClock(uint64_t maxCoreClock)	{ this->_maxCoreClock = maxCoreClock; }
 void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = minCoreClock; }
+
+int		main(void)
+{
+	CpuModule	io;
+	io.updateSysInfo();
+	DataStruct	d0;
+	d0 = io.getData(0);
+	DataStruct	d1;
+	DataStruct	d2;
+	DataStruct	d3;
+	DataStruct	d4;
+	DataStruct	d5;
+	DataStruct	d6;
+	DataStruct	d7;
+	DataStruct	d8;
+	DataStruct	d9;
+	DataStruct	d10;
+	DataStruct	d11;
+	DataStruct	d12;
+	DataStruct	d13;
+	DataStruct	d14;
+	DataStruct	d15;
+	DataStruct	d16;
+	DataStruct	d17;
+	DataStruct	d18;
+
+	d0 = io.getData(0);
+	d1 = io.getData(1);
+	d2 = io.getData(2);
+	d3 = io.getData(3);
+	d4 = io.getData(4);
+	d5 = io.getData(5);
+	d6 = io.getData(6);
+	d7 = io.getData(7);
+	d8 = io.getData(8);
+	d9 = io.getData(9);
+	d10 = io.getData(10);
+	d11 = io.getData(11);
+	d12 = io.getData(12);
+	d13 = io.getData(13);
+	d14 = io.getData(14);
+	d15 = io.getData(15);
+	d16 = io.getData(16);
+	d17 = io.getData(17);
+	d18 = io.getData(18);
+	return (0);
+}
