@@ -12,62 +12,93 @@
 
 #include <mach/mach_types.h>
 #include <mach/mach_host.h>
+#include <sys/types.h>
 #include <sys/sysctl.h>
 #include <iostream>
 
 int		main(void)
 {
-	mach_msg_type_number_t count = sizeof(vm_statistics_data_t) / sizeof(integer_t);//HOST_VM_INFO_COUNT;
-	vm_statistics_data_t vmstat;
+	mach_msg_type_number_t count = HOST_VM_INFO64_COUNT;
+	vm_statistics64_data_t vmstat;
 
 	//VALEUR BRUT
-	uint64_t memsize = 0;
-	double wired = 0;
-	double active = 0;
-	double inactive = 0;
-	double free = 0;
+	uint64_t memsize;
+	xsw_usage swapusage;
 
-	//POUR CALCUL
-	natural_t mem_size;
-	natural_t mem_unused;
-	natural_t mem_used;
-	natural_t mem_wired;
+	//POUR CALCUL TOP
+	uint64_t mem_size;
+	uint64_t mem_unused;
+	uint64_t mem_used;
+	uint64_t mem_wired;
+
+	//POUR CALCUL ACTIVITY MONITOR
+	uint64_t a_mem_used;
+	uint64_t a_mem_virtual;
+	uint64_t a_app_mem;
+	uint64_t a_file_cache;
+	uint64_t a_wired_mem;
+	uint64_t a_compress;
 
 	size_t size = sizeof(memsize);
+	size_t size_swap = sizeof(swapusage);
 	vm_size_t pagesize;
 	host_page_size(mach_host_self(), &pagesize);
+
 	try
 	{
 		if (sysctlbyname("hw.memsize", &memsize, &size, 0, 0) < 0)
 			throw std::exception();
-		if(KERN_SUCCESS != host_statistics64(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count))
+
+		if (sysctlbyname("vm.swapusage", &swapusage, &size_swap, 0, 0) < 0)
 			throw std::exception();
 
-		// BRUT
-		wired = vmstat.wire_count;
-		active = vmstat.active_count;
-		inactive = vmstat.inactive_count;
-		free = vmstat.free_count;
+		if(KERN_SUCCESS != host_statistics64(mach_host_self(), HOST_VM_INFO64, (host_info_t)&vmstat, &count))
+			throw std::exception();
 
-		//CALCUL
-		mem_used = (memsize - (free * pagesize)) / (1024 * 1024);//((vmstat.active_count + vmstat.inactive_count + vmstat.wire_count) * pagesize) / (1024 * 1024);
+		//TOP
+		mem_used = (memsize - (vmstat.free_count * pagesize)) / (1024 * 1024);//((vmstat.active_count + vmstat.inactive_count + vmstat.wire_count) * pagesize) / (1024 * 1024);
 		mem_unused = (vmstat.free_count * pagesize)  / (1024*1024);
-		mem_wired = static_cast<int>((wired * pagesize)/ (1024*1024));
+		mem_wired = static_cast<int>((vmstat.wire_count * pagesize)/ (1024*1024));
 		mem_size = memsize / (1024 * 1024);
+
+		//ACTIVITY MONITOR
+		a_mem_virtual = (memsize + (vmstat.total_uncompressed_pages_in_compressor * pagesize)) / (1024 * 1024);
+		a_app_mem = (vmstat.internal_page_count * pagesize) / (1024 * 1024);
+		a_file_cache= (vmstat.external_page_count * pagesize) / (1024 * 1024);
+		a_wired_mem = (vmstat.wire_count * pagesize) / (1024 * 1024);
+		a_compress = (vmstat.compressor_page_count * pagesize) / (1024 * 1024);
+		a_mem_used = a_app_mem + a_wired_mem + a_compress;
 	}
 	catch (std::exception const &e)
 	{
 		std::cout << "ERROR_RAM_INFO:" << e.what() << std::endl;
 	}
 
-	std::cout << "(uint_64_t)\t\tTotal RAM:\t\t" << memsize << std::endl;
-	std::cout << "(double)\t\tWired Pages:\t\t" << wired << std::endl;			//The number of pages that are wired in memory and cannot be paged out.
-	std::cout << "(double)\t\tActive Pages:\t\t" << active << std::endl;		//The total number of pages currently in use and pageable.
-	std::cout << "(double)\t\tInactive Pages:\t\t" << inactive << std::endl;	//The number of inactive pages.
-	std::cout << "(double)\t\tFree Pages:\t\t" << free << std::endl;			//The total number of free pages in the system.
+	std::cout << "--------------------------BRUT----------------------------------------" << std::endl;
+	std::cout << "(uint_64_t)\t\t\tTotal RAM:\t\t" << memsize << std::endl;
+	std::cout << "(vm_statistics64_data_t)" << std::endl;
+	std::cout << "\t\t\t\tWired Pages:\t\t" << vmstat.wire_count << std::endl;			//The number of pages that are wired in memory and cannot be paged out.
+	std::cout << "\t\t\t\tActive Pages:\t\t" << vmstat.active_count << std::endl;		//The total number of pages currently in use and pageable.
+	std::cout << "\t\t\t\tInactive Pages:\t\t" << vmstat.inactive_count << std::endl;	//The number of inactive pages.
+	std::cout << "\t\t\t\tFree Pages:\t\t" << vmstat.free_count << std::endl;			//The total number of free pages in the system.
+	std::cout << "\t\t\t\tAnd more ....\t\t" << std::endl;
+	std::cout << "(xsw_usage)" << std::endl;
+	std::cout << "\t\t\t\tSwap Used:\t\t" << swapusage.xsu_used << std::endl;
+	std::cout << "\t\t\t\tSwap Available:\t\t" << swapusage.xsu_avail << std::endl;
+	std::cout << "\t\t\t\tSwap Total:\t\t" << swapusage.xsu_total << std::endl;
+	std::cout << "\t\t\t\tAnd more ....\t\t" << std::endl;
 	std::cout << std::endl;
-	std::cout << "(natural_t)\t\tTotal Memory:\t\t" << mem_size << "(Mbytes)" << std::endl;
-	std::cout << "(natural_t)\t\tUsed Memory:\t\t" << mem_used << "(Mbytes)" << std::endl;
-	std::cout << "(natural_t)\t\tWired Memory:\t\t" << mem_wired << "(Mbytes)" << std::endl;
-	std::cout << "(natural_t)\t\tUnused Memory:\t\t" << mem_unused << "(Mbytes)" << std::endl;
+	std::cout << "-------------------TRAITEMENT-INFO-TOP--------------------------------" << std::endl;
+	std::cout << "(uint64_t)\t\tUsed Memory:\t\t" << mem_used << "(Mbytes)\t- Dispo dans cmd top" << std::endl;
+	std::cout << "(uint64_t)\t\tWired Memory:\t\t" << mem_wired << "(Mbytes)\t- Dispo dans cmd top" << std::endl;
+	std::cout << "(uint64_t)\t\tUnused Memory:\t\t" << mem_unused << "(Mbytes)\t- Dispo dans cmd top" << std::endl;
+	std::cout << "-------------------TRAITEMENT-INFO-ACTIVITY-MONITOR--------------------" << std::endl;
+	std::cout << "(uint64_t)\t\tPhysical Memory:\t" << mem_size << "(Mbytes)" << std::endl;
+	std::cout << "(uint64_t)\t\tMemory Used:\t\t" << a_mem_used << "(Mbytes)" << std::endl;
+	std::cout << "(uint64_t)\t\tCached Files:\t\t" << a_file_cache << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tSwap Used:\t\t" << static_cast<double>(static_cast<double>(swapusage.xsu_used)  / (1024 * 1024))<< "(Mbytes)" << std::endl;
+	std::cout << "(uint64_t)\t\tApp Memory:\t\t" << a_app_mem << "(Mbytes)" << std::endl;
+	std::cout << "(uint64_t)\t\tWired Memory:\t\t" << a_wired_mem << "(Mbytes)" << std::endl;
+	std::cout << "(uint64_t)\t\tCompressed:\t\t" << a_compress << "(Mbytes)" << std::endl;
+	std::cout << "(uint64_t)\t\tVirtual Memory:\t\t" << a_mem_virtual << "(Mbytes)" << std::endl;
 }
