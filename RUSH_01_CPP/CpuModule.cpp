@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 22:08:24 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 22:14:14 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -406,7 +406,7 @@ void		CpuModule::setTotalIdle(size_t totalIdle)			{ this->_totalIdle = totalIdle
 void		CpuModule::setMaxCoreClock(uint64_t maxCoreClock)	{ this->_maxCoreClock = maxCoreClock; }
 void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = minCoreClock; }
 
-int		main(void)
+/*int		main(void)
 {
 	CpuModule	io(true, 0, "aiou", 0, 0);
 	DataStruct	d0;
@@ -450,4 +450,4 @@ int		main(void)
 	d17 = io.getData(17);
 	d18 = io.getData(18);
 	return (0);
-}
+}*/
