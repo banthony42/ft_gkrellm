@@ -9,7 +9,7 @@ INC = -I$(INC_D)
 
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror -g
-NAME = testNetwork
+NAME = testClock
 
 all : $(NAME)
 
