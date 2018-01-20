@@ -32,6 +32,16 @@ OsModule::OsModule(bool isActive, int ID, std::string name, int position, int le
 }
 
 OsModule::~OsModule(void) {
+    if (this->_os != 0)
+        delete [] this->_os;
+    if (this->_nodeName != 0)
+        delete [] this->_nodeName;
+    if (this->_release != 0)
+        delete [] this->_release;
+    if (this->_version != 0)
+        delete [] this->_version;
+    if (this->_machine != 0)
+        delete [] this->_machine;
     return ;
 }
 
@@ -39,6 +49,16 @@ void OsModule::updateSysInfo(void)
 {
     struct utsname	sys;
 
+    if (this->_os != 0)
+        delete [] this->_os;
+    if (this->_nodeName != 0)
+        delete [] this->_nodeName;
+    if (this->_release != 0)
+        delete [] this->_release;
+    if (this->_version != 0)
+        delete [] this->_version;
+    if (this->_machine != 0)
+        delete [] this->_machine;
     try
     {
         if (uname(&sys) < 0)

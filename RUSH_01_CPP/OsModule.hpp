@@ -25,7 +25,6 @@ private:
     char    *_machine;
 
     OsModule(void);
-
     OsModule(OsModule const &copy);
     OsModule const &operator=(OsModule const &copy);
 public:
