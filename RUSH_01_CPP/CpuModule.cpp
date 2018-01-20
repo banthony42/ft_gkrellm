@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 22:18:16 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 22:53:58 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	if (n == 0)
 	{
 		uint64_t *ptr = new uint64_t;
+		*ptr = this->cpuFrequency;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
