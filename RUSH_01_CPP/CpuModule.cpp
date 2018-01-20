@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 21:20:37 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 21:22:18 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 
 	if (n == 0)
 	{
-		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_cpuFrequency)];
+		uint64_t *ptr = new uint64_t;
 
 		*ptr = this->_cpuFrequency;
 		dataToReturn.setDataAddr(ptr);
@@ -195,8 +195,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 1)
 	{
-		int *ptr = new int[sizeof(int) * sizeof(this->_nbCores)];
-
+		int *ptr = new int;
 		*ptr = this->_nbCores;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(INT);
@@ -205,8 +204,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 2)
 	{
-		int *ptr = new int[sizeof(int) * sizeof(this->_activeCores)];
-
+		int *ptr = new int;
 		*ptr = this->_activeCores;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(INT);
@@ -215,8 +213,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 3)
 	{
-		uint32_t *ptr = new uint32_t[sizeof(uint32_t) * sizeof(this->_cpuType)];
-
+		uint32_t *ptr = new uint32_t;
 		*ptr = this->_cpuType;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT32);
@@ -225,8 +222,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 4)
 	{
-		size_t *ptr = new size_t[sizeof(size_t) * sizeof(this->_cpuUsed)];
-
+		size_t *ptr = new size_t;
 		*ptr = this->_cpuUsed;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
@@ -235,7 +231,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 5)
 	{
-		size_t *ptr = new size_t[sizeof(size_t) * sizeof(this->_totalCpu)];
+		size_t *ptr = new size_t;
 		*ptr = this->_totalCpu;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
@@ -244,7 +240,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 6)
 	{
-		size_t *ptr = new size_t[sizeof(size_t) * sizeof(this->_cpuAvailable)];
+		size_t *ptr = new size_t;
 		*ptr = this->_cpuAvailable;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(SIZET);
@@ -253,7 +249,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 7)
 	{
-		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l3CacheSize)];
+		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l3CacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -262,7 +258,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 8)
 	{
-		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l2CacheSize)];
+		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l2CacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -271,7 +267,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 9)
 	{
-		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l1dCacheSize)];
+		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l1dCacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -280,7 +276,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 10)
 	{
-		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l1iCacheSize)];
+		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l1iCacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -291,7 +287,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		if (this->_cpuModel == NULL)
 			return (dataToReturn);
-		char *ptr = new char[sizeof(char) * std::strlen(this->_cpuModel)];
+		char *ptr = new char[sizeof(this->_cpuModel)];
 		std::cout << this->_cpuModel << std::endl;
 		std::strcpy(ptr, this->_cpuModel);
 		dataToReturn.setDataAddr(&ptr);
@@ -301,9 +297,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 12)
 	{
-		if (this->_cpuName == NULL)
-			return (dataToReturn);
-		char *ptr = new char[sizeof(char) * std::strlen(this->_cpuName)];
+		char *ptr = new char(sizeof(this->_cpuName));
 		std::strcpy(ptr, this->_cpuName);
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(CHAR_PTR);
@@ -312,7 +306,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 13)
 	{
-		timeval *ptr = new timeval[sizeof(timeval) * sizeof(this->_bootTime)];
+		timeval *ptr = new timeval;
 		*ptr = this->_bootTime;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(TIMEVAL);
@@ -416,9 +410,7 @@ void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = 
 int		main(void)
 {
 	CpuModule	io;
-	io.updateSysInfo();
-	DataStruct	d0;
-	d0 = io.getData(0);
+	DataStruct	d0 = io.getData(0);
 	DataStruct	d1;
 	DataStruct	d2;
 	DataStruct	d3;
@@ -438,6 +430,7 @@ int		main(void)
 	DataStruct	d17;
 	DataStruct	d18;
 
+	io.updateSysInfo();
 	d0 = io.getData(0);
 	d1 = io.getData(1);
 	d2 = io.getData(2);
