@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 20:13:36 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/19 21:21:06 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 11:36:21 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int		main(void)
 			}
 		}
 	}
-	std::cout << static_cast<double>(ibytes) / 1000000000.0 << std::endl;	//total number of octets received (in Gb ?).
-	std::cout << static_cast<double>(obytes) / 1000000000.0 << std::endl;	//total number of octets sent (in Gb ?).
-	std::cout << ipackets << std::endl;										//packets received on interface
-	std::cout << opackets << std::endl;										//packets sent on interface
+	std::cout << "(double)\tTotal number of Bytes In:\t" << static_cast<double>(ibytes) / 1000000000.0 << std::endl;
+	std::cout << "(double)\tTotal number of Bytes Out:\t" << static_cast<double>(obytes) / 1000000000.0 << std::endl;
+	std::cout << "(long int)\tTotal number of Packets In:\t" << ipackets << std::endl;
+	std::cout << "(long int)\tTotal number of Bytes Out:\t" << opackets << std::endl;
 	delete buf;
 	return (0);
 }
