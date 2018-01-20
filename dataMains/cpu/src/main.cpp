@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 18:33:29 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 11:22:49 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 12:13:27 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int		main(void)
 	size_t		cpuUsed;
 	size_t		totalCpu;
 	size_t		cpuAvailable;
+	uint64_t	physicalMem;
 	char		cpuModel[100];
+	char		cpuName[50];
 	/*CPU Activity Start*/
 	natural_t						cpuCount;
 	processor_cpu_load_info_t		cpuInfo;
@@ -62,6 +64,8 @@ int		main(void)
 	size_t sizeCan64bits	= sizeof(maxCoreClock);
 	size_t sizeCpuType		= sizeof(cpuType);
 	size_t sizeCpuModel		= sizeof(char) * 100;
+	size_t sizeCpuName		= sizeof(char) * 50;
+	size_t sizePhysicalMem	= sizeof(uint64_t);
 	//La taille des données stockées dans le pointeur seront dans leurs sizes respectives
 	/*Utility pointers*/
 	//int	i = 0;
@@ -85,6 +89,10 @@ int		main(void)
 		minCoreClock = -1;
 	if (sysctlbyname("hw.model", &cpuModel, &sizeCpuModel, NULL, 0) < 0)
 		std::cout << "cpuModel fail" << std::endl;
+	if (sysctlbyname("machdep.cpu.brand_string", &cpuName, &sizeCpuName, NULL, 0) < 0)
+		std::cout << "cpuName fail" << std::endl;
+	if (sysctlbyname("hw.memsize", &physicalMem, &sizePhysicalMem, NULL, 0) < 0)
+		std::cout << "Physical memory" << std::endl;
 	/*Syscalls End*/
 
 	/*CPU activity Syscall Start*/
@@ -109,11 +117,13 @@ int		main(void)
 	std::cout << "(int)\t\tnbCores:\t\t" << nbCores << std::endl;
 	std::cout << "(int)\t\tactiveCores:\t\t" << activeCores << std::endl;
 	std::cout << "(uint34_t)\tcpuType:\t\t" << cpuType << std::endl;
+	std::cout << "(char*)\t\tcpuName:\t\t" << cpuName << std::endl;
+	std::cout << "(int)\t\tPhysical Memory:\t" << physicalMem << std::endl;
 
 	std::cout << "(int)\t\tcpuFamily:\t\t" << cpuFamily << std::endl;
 	std::cout << "(uint64_t)\tmaxCoreClock:\t\t" << maxCoreClock << std::endl;
 	std::cout << "(uint64_t)\tminCoreClock:\t\t" << minCoreClock << std::endl;
-	std::cout << "(bool)\t\tminCoreClock:\t\t" << can64bits << std::endl;
+	std::cout << "(bool)\t\t64bits Support ?:\t" << can64bits << std::endl;
 	std::cout << "(char*)\t\tcpuModel:\t\t" << cpuModel << std::endl;
 
 	std::cout << "(size_t)\tCpuTotal:\t\t" << totalCpu << std::endl;
