@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 21:48:53 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 22:08:24 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,20 +123,20 @@ void		CpuModule::updateSysInfo(void)
 		this->_minCoreClock = -1;
 	sysctlbyname("hw.model", NULL, &sizeCpuModel, NULL, 0);
 	if (this->_cpuModel == NULL)
-		this->_cpuModel = new char[sizeof(sizeCpuModel)];
+		this->_cpuModel = new char[sizeCpuModel];
 	else
 	{
-		delete []this->_cpuModel;
-		this->_cpuModel = new char[sizeof(sizeCpuModel)];
+		delete [] this->_cpuModel;
+		this->_cpuModel = new char[sizeCpuModel];
 	}
 	sysctlbyname("hw.model", this->_cpuModel, &sizeCpuModel, NULL, 0);
 	sysctlbyname("machdep.cpu.brand_string", NULL, &sizeCpuName, NULL, 0);
 	if (this->_cpuName == NULL)
-		this->_cpuName = new char[sizeof(sizeCpuName)];
+		this->_cpuName = new char[sizeCpuName];
 	else
 	{
-		delete []this->_cpuName;
-		this->_cpuName = new char[sizeof(sizeCpuName)];
+		delete [] this->_cpuName;
+		this->_cpuName = new char[sizeCpuName];
 	}
 	sysctlbyname("machdep.cpu.brand_string", this->_cpuName, &sizeCpuName, NULL, 0);
 	if (sysctlbyname("hw.l1icachesize", &this->_l1iCacheSize, &sizel1iCacheSize, NULL, 0) < 0)
@@ -286,7 +286,6 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		if (this->_cpuModel == NULL)
 			return (dataToReturn);
 		char *ptr = new char[std::strlen(this->_cpuModel) * sizeof(char)];
-		std::cout << this->_cpuModel << std::endl;
 		std::strcpy(ptr, this->_cpuModel);
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(CHAR_PTR);
@@ -389,13 +388,13 @@ void		CpuModule::setL1dCacheSize(uint64_t l1dCacheSize)	{ this->_l1dCacheSize = 
 void		CpuModule::setL1iCacheSize(uint64_t l1iCacheSize)	{ this->_l1iCacheSize = l1iCacheSize; }
 void		CpuModule::setCpuModel(char *cpuModel)				{
 	if (this->_cpuModel != NULL)
-		delete []this->_cpuModel;
+		delete [] this->_cpuModel;
 	this->_cpuModel = new char[sizeof(cpuModel)];
 	strcpy(this->_cpuModel, cpuModel);
 }
 void		CpuModule::setCpuName(char *cpuName)				{
 	if (this->_cpuName != NULL)
-		delete []this->_cpuName;
+		delete [] this->_cpuName;
 	this->_cpuName = new char[sizeof(cpuName)];
 	strcpy(this->_cpuName, cpuName);
 	return ;
@@ -430,7 +429,7 @@ int		main(void)
 	DataStruct	d17;
 	DataStruct	d18;
 
-	//io.updateSysInfo();
+	io.updateSysInfo();
 	d0 = io.getData(0);
 	d1 = io.getData(1);
 	d2 = io.getData(2);
