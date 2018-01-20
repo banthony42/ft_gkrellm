@@ -22,6 +22,7 @@
 #include <time.h>
 #include <mach/mach_types.h>
 #include <mach/mach_host.h>
+#include <fstream>
 
 #define HOST_NAME_MAX 256      //sensé etre definit dans #include <limits.h>
 #define LOGIN_NAME_MAX 256     //senś etre definit dans #include <limits.h>
@@ -108,8 +109,10 @@ void cpu_info_module()
 
 void ram_info_module()
 {
-    mach_msg_type_number_t count = sizeof(vm_statistics_data_t) / sizeof(integer_t);//HOST_VM_INFO_COUNT;
-    vm_statistics_data_t vmstat;
+    mach_msg_type_number_t count = HOST_VM_INFO64_COUNT;
+
+    //TOUTE LES VALEURS SERONT DANS:
+    vm_statistics64_data_t vmstat;
 
     //VALEUR BRUT
     uint64_t memsize = 0;
@@ -131,7 +134,7 @@ void ram_info_module()
     {
         if (sysctlbyname("hw.memsize", &memsize, &size, 0, 0) < 0)
             throw std::exception();
-        if(KERN_SUCCESS != host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count))
+        if(KERN_SUCCESS != host_statistics64(mach_host_self(), HOST_VM_INFO64, (host_info64_t)&vmstat, &count))
             throw std::exception();
 
         // BRUT
@@ -165,25 +168,71 @@ void ram_info_module()
     std::cout << mem_unused << "M unused." << std::endl;
 }
 
+void ram_info_module2()
+{
+    mach_msg_type_number_t count = HOST_VM_INFO64_COUNT;
+
+    //TOUTE LES VALEURS SERONT DANS:
+    vm_statistics64_data_t vmstat;
+    uint64_t memsize;
+    uint64_t swapusage;
+
+    //POUR CALCUL
+    natural_t phys_mem;
+    natural_t mem_used;
+    natural_t mem_virtual;
+    natural_t app_memory;
+
+
+    size_t size = sizeof(uint64_t);
+    vm_size_t pagesize;
+    host_page_size(mach_host_self(), &pagesize);
+    try
+    {
+        if (sysctlbyname("hw.memsize", &memsize, &size, 0, 0) < 0)
+            throw std::exception();
+
+        if (sysctlbyname("vm.swapusage", &swapusage, &size, 0, 0) < 0)
+            throw std::exception();
+
+        if(KERN_SUCCESS != host_statistics64(mach_host_self(), HOST_VM_INFO64, (host_info64_t)&vmstat, &count))
+            throw std::exception();
+
+        //CALCUL
+        phys_mem = memsize / (1024 * 1024);
+        mem_used = (memsize - (vmstat.free_count * pagesize)) / (1024 * 1024);
+        mem_virtual = phys_mem + (vmstat.total_uncompressed_pages_in_compressor * pagesize);
+    }
+    catch (std::exception const &e)
+    {
+        std::cout << "ERROR_RAM_INFO:" << e.what() << std::endl;
+    }
+
+
+}
 
 int main(void)
 {
-    std::cout << "-----------USER-HOST------------ " <<std::endl;
+    std::cout << "-----------USER-HOST------------- " <<std::endl;
     host_user_module();
     std::cout << std::endl;
 
-    std::cout << "-----------OS_INFO------------ " <<std::endl;
+    std::cout << "-----------OS_INFO--------------- " <<std::endl;
     OS_info_module();
     std::cout << std::endl;
 
-    std::cout << "-----------DATE_TIME------------ " <<std::endl;
+    std::cout << "-----------DATE_TIME------------- " <<std::endl;
     date_time_module();
     std::cout << std::endl;
 
-    std::cout << "-----------CPU_INFO------------ " <<std::endl;
+    std::cout << "-----------CPU_INFO-------------- " <<std::endl;
     cpu_info_module();
     std::cout << std::endl;
 
-    std::cout << "-----------RAM-INFO------------ " <<std::endl;
+    std::cout << "-----------RAM-INFO-------------- " <<std::endl;
     ram_info_module();
+    std::cout << std::endl;
+
+    std::cout << "-----------RAM-INFO2-------------- " <<std::endl;
+    ram_info_module2();
 }
