@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AModule.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 13:18:18 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/20 16:14:02 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/20 19:49:49 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void                AModule::updateSysInfo(void) {
     throw NothingToUpDateException();
 }
 
-DataStruct          AModule::getData(unsigned int n) {
+DataStruct const    AModule::getData(unsigned int n) const {
     unsigned int    val = n;
     if (val == n)
         val++;

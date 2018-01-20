@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AModule.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 13:10:41 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/20 16:14:01 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/20 19:50:50 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ class AModule : public IMonitorModule {
     };
 
     virtual void updateSysInfo(void);
-    virtual DataStruct getData(unsigned int n);
+    virtual DataStruct const getData(unsigned int n) const;
 
 
     //getteurs
