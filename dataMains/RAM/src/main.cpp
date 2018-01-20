@@ -32,12 +32,12 @@ int		main(void)
 	uint64_t mem_wired;
 
 	//POUR CALCUL ACTIVITY MONITOR
-	uint64_t a_mem_used;
-	uint64_t a_mem_virtual;
-	uint64_t a_app_mem;
-	uint64_t a_file_cache;
-	uint64_t a_wired_mem;
-	uint64_t a_compress;
+	double a_mem_used;
+	double a_mem_virtual;
+	double a_app_mem;
+	double a_file_cache;
+	double a_wired_mem;
+	double a_compress;
 
 	size_t size = sizeof(memsize);
 	size_t size_swap = sizeof(swapusage);
@@ -62,11 +62,11 @@ int		main(void)
 		mem_size = memsize / (1024 * 1024);
 
 		//ACTIVITY MONITOR
-		a_mem_virtual = (memsize + (vmstat.total_uncompressed_pages_in_compressor * pagesize)) / (1024 * 1024);
-		a_app_mem = (vmstat.internal_page_count * pagesize) / (1024 * 1024);
-		a_file_cache= (vmstat.external_page_count * pagesize) / (1024 * 1024);
-		a_wired_mem = (vmstat.wire_count * pagesize) / (1024 * 1024);
-		a_compress = (vmstat.compressor_page_count * pagesize) / (1024 * 1024);
+		a_mem_virtual = static_cast<double>(memsize + static_cast<double>(vmstat.total_uncompressed_pages_in_compressor * pagesize)) / (1024 * 1024);
+		a_app_mem = static_cast<double>(vmstat.internal_page_count * pagesize) / (1024 * 1024);
+		a_file_cache= static_cast<double>(vmstat.external_page_count * pagesize) / (1024 * 1024);
+		a_wired_mem = static_cast<double>(vmstat.wire_count * pagesize) / (1024 * 1024);
+		a_compress = static_cast<double>(vmstat.compressor_page_count * pagesize) / (1024 * 1024);
 		a_mem_used = a_app_mem + a_wired_mem + a_compress;
 	}
 	catch (std::exception const &e)
@@ -93,12 +93,12 @@ int		main(void)
 	std::cout << "(uint64_t)\t\tWired Memory:\t\t" << mem_wired << "(Mbytes)\t- Dispo dans cmd top" << std::endl;
 	std::cout << "(uint64_t)\t\tUnused Memory:\t\t" << mem_unused << "(Mbytes)\t- Dispo dans cmd top" << std::endl;
 	std::cout << "-------------------TRAITEMENT-INFO-ACTIVITY-MONITOR--------------------" << std::endl;
-	std::cout << "(uint64_t)\t\tPhysical Memory:\t" << mem_size << "(Mbytes)" << std::endl;
-	std::cout << "(uint64_t)\t\tMemory Used:\t\t" << a_mem_used << "(Mbytes)" << std::endl;
-	std::cout << "(uint64_t)\t\tCached Files:\t\t" << a_file_cache << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tPhysical Memory:\t" << mem_size << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tMemory Used:\t\t" << a_mem_used << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tCached Files:\t\t" << a_file_cache << "(Mbytes)" << std::endl;
 	std::cout << "(double)\t\tSwap Used:\t\t" << static_cast<double>(static_cast<double>(swapusage.xsu_used)  / (1024 * 1024))<< "(Mbytes)" << std::endl;
-	std::cout << "(uint64_t)\t\tApp Memory:\t\t" << a_app_mem << "(Mbytes)" << std::endl;
-	std::cout << "(uint64_t)\t\tWired Memory:\t\t" << a_wired_mem << "(Mbytes)" << std::endl;
-	std::cout << "(uint64_t)\t\tCompressed:\t\t" << a_compress << "(Mbytes)" << std::endl;
-	std::cout << "(uint64_t)\t\tVirtual Memory:\t\t" << a_mem_virtual << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tApp Memory:\t\t" << a_app_mem << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tWired Memory:\t\t" << a_wired_mem << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tCompressed:\t\t" << a_compress << "(Mbytes)" << std::endl;
+	std::cout << "(double)\t\tVirtual Memory:\t\t" << a_mem_virtual << "(Mbytes)" << std::endl;
 }
