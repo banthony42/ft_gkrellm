@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:01:52 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 19:51:24 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 20:27:27 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <time.h>
 # include <cstring>
+# include <new>
 
 class CpuModule : public AModule {
 	private:

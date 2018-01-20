@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 20:24:55 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/20 21:16:54 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,9 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 
 	if (n == 0)
 	{
-		uint64_t *ptr = new uint64_t(this->_cpuFrequency);
+		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_cpuFrequency)];
+
+		*ptr = this->_cpuFrequency;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
@@ -193,7 +195,8 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 1)
 	{
-		int *ptr = new int;
+		int *ptr = new int[sizeof(int) * sizeof(this->_nbCores)];
+
 		*ptr = this->_nbCores;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(INT);
@@ -202,7 +205,8 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 2)
 	{
-		int *ptr = new int;
+		int *ptr = new int[sizeof(int) * sizeof(this->_activeCores)];
+
 		*ptr = this->_activeCores;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(INT);
@@ -211,7 +215,8 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 3)
 	{
-		uint32_t *ptr = new uint32_t;
+		uint32_t *ptr = new uint32_t[sizeof(uint32_t) * sizeof(this->_cpuType)];
+
 		*ptr = this->_cpuType;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT32);
@@ -220,7 +225,8 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 4)
 	{
-		size_t *ptr = new size_t;
+		size_t *ptr = new size_t[sizeof(size_t) * sizeof(this->_cpuUsed)];
+
 		*ptr = this->_cpuUsed;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
@@ -229,7 +235,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 5)
 	{
-		size_t *ptr = new size_t;
+		size_t *ptr = new size_t[sizeof(size_t) * sizeof(this->_totalCpu)];
 		*ptr = this->_totalCpu;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
@@ -238,7 +244,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 6)
 	{
-		size_t *ptr = new size_t;
+		size_t *ptr = new size_t[sizeof(size_t) * sizeof(this->_cpuAvailable)];
 		*ptr = this->_cpuAvailable;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(SIZET);
@@ -247,7 +253,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 7)
 	{
-		uint64_t *ptr = new uint64_t;
+		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l3CacheSize)];
 		*ptr = this->_l3CacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -256,7 +262,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 8)
 	{
-		uint64_t *ptr = new uint64_t;
+		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l2CacheSize)];
 		*ptr = this->_l2CacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -265,7 +271,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 9)
 	{
-		uint64_t *ptr = new uint64_t;
+		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l1dCacheSize)];
 		*ptr = this->_l1dCacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -274,7 +280,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 10)
 	{
-		uint64_t *ptr = new uint64_t;
+		uint64_t *ptr = new uint64_t[sizeof(uint64_t) * sizeof(this->_l1iCacheSize)];
 		*ptr = this->_l1iCacheSize;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(UINT64);
@@ -285,7 +291,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		if (this->_cpuModel == NULL)
 			return (dataToReturn);
-		char *ptr = new char[sizeof(this->_cpuModel)];
+		char *ptr = new char[sizeof(char) * std::strlen(this->_cpuModel)];
 		std::cout << this->_cpuModel << std::endl;
 		std::strcpy(ptr, this->_cpuModel);
 		dataToReturn.setDataAddr(&ptr);
@@ -295,7 +301,9 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 12)
 	{
-		char *ptr = new char(sizeof(this->_cpuName));
+		if (this->_cpuName == NULL)
+			return (dataToReturn);
+		char *ptr = new char[sizeof(char) * std::strlen(this->_cpuName)];
 		std::strcpy(ptr, this->_cpuName);
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(CHAR_PTR);
@@ -304,7 +312,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	}
 	else if (n == 13)
 	{
-		timeval *ptr = new timeval;
+		timeval *ptr = new timeval[sizeof(timeval) * sizeof(this->_bootTime)];
 		*ptr = this->_bootTime;
 		dataToReturn.setDataAddr(&ptr);
 		dataToReturn.setDataType(TIMEVAL);
@@ -404,49 +412,3 @@ void		CpuModule::setTotalUser(size_t totalUser)			{ this->_totalUser = totalUser
 void		CpuModule::setTotalIdle(size_t totalIdle)			{ this->_totalIdle = totalIdle; }
 void		CpuModule::setMaxCoreClock(uint64_t maxCoreClock)	{ this->_maxCoreClock = maxCoreClock; }
 void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = minCoreClock; }
-
-int		main(void)
-{
-	CpuModule	io;
-	DataStruct	d0 = io.getData(0);
-	DataStruct	d1;
-	DataStruct	d2;
-	DataStruct	d3;
-	DataStruct	d4;
-	DataStruct	d5;
-	DataStruct	d6;
-	DataStruct	d7;
-	DataStruct	d8;
-	DataStruct	d9;
-	DataStruct	d10;
-	DataStruct	d11;
-	DataStruct	d12;
-	DataStruct	d13;
-	DataStruct	d14;
-	DataStruct	d15;
-	DataStruct	d16;
-	DataStruct	d17;
-	DataStruct	d18;
-
-	io.updateSysInfo();
-	d0 = io.getData(0);
-	d1 = io.getData(1);
-	d2 = io.getData(2);
-	d3 = io.getData(3);
-	d4 = io.getData(4);
-	d5 = io.getData(5);
-	d6 = io.getData(6);
-	d7 = io.getData(7);
-	d8 = io.getData(8);
-	d9 = io.getData(9);
-	d10 = io.getData(10);
-	d11 = io.getData(11);
-	d12 = io.getData(12);
-	d13 = io.getData(13);
-	d14 = io.getData(14);
-	d15 = io.getData(15);
-	d16 = io.getData(16);
-	d17 = io.getData(17);
-	d18 = io.getData(18);
-	return (0);
-}
