@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AGraphical.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 11:26:26 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:12:12 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/21 15:03:35 by jrouthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case STRING:
 
 					break;
-				}//
+					default:
+						break;
+				}
 			break;
 			case INT:
 				switch (dataCpy.getDisplayType()) {
@@ -59,6 +61,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 
 					break;
 					case GRAPH:
+					default:
+						break;
 				}
 			break;
 			case LONGINT:
@@ -72,6 +76,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case GRAPH:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case DOUBLE:
@@ -85,6 +91,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case GRAPH:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case TIME_T:
@@ -95,6 +103,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case VALUE:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case UINT64:
@@ -108,6 +118,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case GRAPH:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case UINT32:
@@ -121,6 +133,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case GRAPH:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case SIZET:
@@ -134,6 +148,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case GRAPH:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case TIMEVAL:
@@ -141,6 +157,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case TIME_VAL:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case XSWUSAGE:
@@ -148,6 +166,8 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case XSW_USAGE:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			case VMSTAT64:
@@ -155,9 +175,12 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case VM_STAT64:
 
 					break;
+					default:
+						break;
 				}
 			break;
 			default:
+				break;
 			//ADD THROW /!\ <-NONDISPLAYABLE
 		}
 	}
