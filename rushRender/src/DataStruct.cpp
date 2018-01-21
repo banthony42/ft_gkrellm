@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DataStruct.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:52:40 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/21 19:27:18 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 21:28:24 by jrouthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ DataStruct::DataStruct(DataStruct const & src) : _dataAddr(src.getDataAddr()), _
 	return;
 }
 DataStruct::~DataStruct(void) {
-	return ;
+	return;
 }
 
 DataStruct &    DataStruct::operator=(DataStruct const & rhs) {
-	this->setDataType(rhs.getDataType());
+	std::memcpy(this, reinterpret_cast<const void*>(&rhs), sizeof(DataStruct));
+	return (*this);
+	/*this->setDataType(rhs.getDataType());
 	this->setDisplayType(rhs.getDisplayType());
 	this->setVarLabel(rhs.getVarLabel());
 	if (this->_dataType == CHAR_PTR)
@@ -134,7 +136,7 @@ DataStruct &    DataStruct::operator=(DataStruct const & rhs) {
 	}
 	else
 		this->_dataAddr = NULL;
-	return (*this);
+	return (*this);*/
 }
 
 void			*DataStruct::getDataAddr(void)		const				{ return (this->_dataAddr); }

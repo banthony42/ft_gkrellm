@@ -46,7 +46,7 @@ private:
 		TextureData(TextureData const &copy);
 		TextureData	&operator=(TextureData const &rhs);
 		GLuint _tex_id;
-		float _data[512];
+		float _data[256];
 		float _dataMin;
 		float _dataMax;
 		std::string _text;

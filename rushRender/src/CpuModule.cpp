@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 20:45:34 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 21:22:11 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ void		CpuModule::updateSysInfo(void)
 		this->_l3CacheSize = -1;
 	if (sysctlbyname("kern.boottime", &this->_bootTime, &sizeBootTime, NULL, 0) < 0)
 		this->_l3CacheSize = -1;
+	this->_totalSystem = 0;
+	this->_totalUser = 0;
+	this->_totalIdle = 0;
 	if (r == KERN_SUCCESS)
 	{
 		for (natural_t i = 0; i < cpuCount; i++)
@@ -159,9 +162,13 @@ void		CpuModule::updateSysInfo(void)
 			this->_totalUser += user;
 			this->_totalIdle += idle;
 		}
+		double oTcpu = this->_totalCpu;
+		double ocpuA = this->_cpuAvailable;
 		this->_totalCpu = this->_totalIdle + this->_totalSystem + this->_totalUser;
 		this->_cpuAvailable = (this->_totalSystem + this->_totalUser);
 		this->_cpuUsed = this->_totalCpu - this->_cpuAvailable;
+		if (oTcpu > 0 && this->_totalCpu > 0 && ocpuA > 0 && this->_cpuAvailable > 0)
+			this->_cpuUsage = ((this->_cpuAvailable - ocpuA) / (this->_totalCpu - oTcpu)) * 100;
 	}
 	else
 	{
@@ -378,7 +385,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		double *ptr = new double;
 		*ptr = this->_cpuUsage;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(NODISP);
+		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Cpu Usage (%)");
 		return (dataToReturn);

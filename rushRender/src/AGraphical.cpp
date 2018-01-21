@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 11:26:26 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 20:15:16 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 21:28:40 by jrouthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 			switch (dataCpy.getDisplayType()) {
 					case STRING:
 						generateStringDisplay(autoCast(reinterpret_cast<char *>(dataCpy.getDataAddr())), dataCpy.getVarLabel(), src);
+						delete[] reinterpret_cast<char *>(dataCpy.getDataAddr());
 					break;
 					default:
 						break;
@@ -83,9 +84,11 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 				switch (dataCpy.getDisplayType()) {
 					case VALUE:
 						generateValDisplay(autoCast(reinterpret_cast<int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<int *>(dataCpy.getDataAddr());
 					break;
 					case GRAPH:
 						generateCurveDisplay(autoCast(reinterpret_cast<int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<int *>(dataCpy.getDataAddr());
 					default:
 						break;
 				}
@@ -94,9 +97,11 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 				switch (dataCpy.getDisplayType()) {
 					case VALUE:
 						generateValDisplay(autoCast(reinterpret_cast<long int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<long int *>(dataCpy.getDataAddr());
 					break;
 					case GRAPH:
 						generateCurveDisplay(autoCast(reinterpret_cast<long int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<long int *>(dataCpy.getDataAddr());
 					default:
 						break;
 				}
@@ -105,9 +110,50 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 				switch (dataCpy.getDisplayType()) {
 					case VALUE:
 						generateValDisplay(autoCast(reinterpret_cast<double *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<double *>(dataCpy.getDataAddr());
 					break;
 					case GRAPH:
 						generateCurveDisplay(autoCast(reinterpret_cast<double *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<double *>(dataCpy.getDataAddr());
+					default:
+						break;
+				}
+			break;
+			case UINT64:
+				switch (dataCpy.getDisplayType()) {
+					case VALUE:
+						generateValDisplay(autoCast(reinterpret_cast<uint64_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<uint64_t *>(dataCpy.getDataAddr());
+					break;
+					case GRAPH:
+						generateCurveDisplay(autoCast(reinterpret_cast<uint64_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<uint64_t *>(dataCpy.getDataAddr());
+					default:
+						break;
+				}
+			break;
+			case UINT32:
+				switch (dataCpy.getDisplayType()) {
+					case VALUE:
+						generateValDisplay(autoCast(reinterpret_cast<uint32_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<uint32_t *>(dataCpy.getDataAddr());
+					break;
+					case GRAPH:
+						generateCurveDisplay(autoCast(reinterpret_cast<uint32_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<uint32_t *>(dataCpy.getDataAddr());
+					default:
+						break;
+				}
+			break;
+			case SIZET:
+				switch (dataCpy.getDisplayType()) {
+					case VALUE:
+						generateValDisplay(autoCast(reinterpret_cast<size_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<size_t *>(dataCpy.getDataAddr());
+					break;
+					case GRAPH:
+						generateCurveDisplay(autoCast(reinterpret_cast<size_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
+						delete reinterpret_cast<size_t *>(dataCpy.getDataAddr());
 					default:
 						break;
 				}
@@ -120,39 +166,6 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case VALUE:
 
 					break;
-					default:
-						break;
-				}
-			break;
-			case UINT64:
-				switch (dataCpy.getDisplayType()) {
-					case VALUE:
-						generateValDisplay(autoCast(reinterpret_cast<uint64_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
-					break;
-					case GRAPH:
-						generateCurveDisplay(autoCast(reinterpret_cast<uint64_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
-					default:
-						break;
-				}
-			break;
-			case UINT32:
-				switch (dataCpy.getDisplayType()) {
-					case VALUE:
-						generateValDisplay(autoCast(reinterpret_cast<uint32_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
-					break;
-					case GRAPH:
-						generateCurveDisplay(autoCast(reinterpret_cast<uint32_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
-					default:
-						break;
-				}
-			break;
-			case SIZET:
-				switch (dataCpy.getDisplayType()) {
-					case VALUE:
-						generateValDisplay(autoCast(reinterpret_cast<size_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
-					break;
-					case GRAPH:
-						generateCurveDisplay(autoCast(reinterpret_cast<size_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel(), src);
 					default:
 						break;
 				}
