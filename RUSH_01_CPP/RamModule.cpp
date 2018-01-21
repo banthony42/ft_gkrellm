@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 15:15:21 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 15:16:32 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ DataStruct const RamModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 9) {
-        dataToReturn.setDataAddr(new uint64_t(this->_memsize););
+        dataToReturn.setDataAddr(new uint64_t(this->_memsize));
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
         dataToReturn.setVarLabel("Total Raw Amount of RAM");
