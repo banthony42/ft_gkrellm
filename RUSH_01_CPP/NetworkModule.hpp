@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:16:58 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 22:38:28 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 11:11:27 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ class NetworkModule : public AModule {
 		double		_bytesOutDiff;
 		long int	_packetInDiff;
 		long int	_packetOutDiff;
+
 		double		_bytesInNew;
 		double		_bytesOutNew;
 		long int	_packetInNew;
 		long int	_packetOutNew;
+
 		double		_bytesInOld;
 		double		_bytesOutOld;
 		long int	_packetInOld;
