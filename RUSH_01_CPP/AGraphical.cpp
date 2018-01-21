@@ -6,11 +6,13 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 11:26:26 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 15:13:50 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/21 15:48:48 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AGraphical.hpp"
+#include "AutoCast.template.hpp"
+
 
 AGraphical::AGraphical(void) : IMonitorDisplay(),
 	_isActive(false),
@@ -46,7 +48,7 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 			case CHAR_PTR:
 			switch (dataCpy.getDisplayType()) {
 					case STRING:
-
+						generateStringDisplay(autoCast(reinterpret_cast<char *>(dataCpy.getDataAddr())), dataCpy.getVarLabel());
 					break;
 					default:
 						break;
@@ -54,43 +56,33 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 			break;
 			case INT:
 				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
 					case VALUE:
-
+						generateValDisplay(autoCast(reinterpret_cast<int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					break;
 					case GRAPH:
+						generateCurveDisplay(autoCast(reinterpret_cast<int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					default:
 						break;
 				}
 			break;
 			case LONGINT:
 				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
 					case VALUE:
-
+						generateValDisplay(autoCast(reinterpret_cast<long int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					break;
 					case GRAPH:
-
-					break;
+						generateCurveDisplay(autoCast(reinterpret_cast<long int *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					default:
 						break;
 				}
 			break;
 			case DOUBLE:
 				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
 					case VALUE:
-
+						generateValDisplay(autoCast(reinterpret_cast<double *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					break;
 					case GRAPH:
-
-					break;
+						generateCurveDisplay(autoCast(reinterpret_cast<double *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					default:
 						break;
 				}
@@ -109,45 +101,33 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 			break;
 			case UINT64:
 				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
 					case VALUE:
-
+						generateValDisplay(autoCast(reinterpret_cast<uint64_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					break;
 					case GRAPH:
-
-					break;
+						generateCurveDisplay(autoCast(reinterpret_cast<uint64_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					default:
 						break;
 				}
 			break;
 			case UINT32:
 				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
 					case VALUE:
-
+						generateValDisplay(autoCast(reinterpret_cast<uint32_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					break;
 					case GRAPH:
-
-					break;
+						generateCurveDisplay(autoCast(reinterpret_cast<uint32_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					default:
 						break;
 				}
 			break;
 			case SIZET:
 				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
 					case VALUE:
-
+						generateValDisplay(autoCast(reinterpret_cast<size_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					break;
 					case GRAPH:
-
-					break;
+						generateCurveDisplay(autoCast(reinterpret_cast<size_t *>(dataCpy.getDataAddr())[0]), dataCpy.getVarLabel());
 					default:
 						break;
 				}
