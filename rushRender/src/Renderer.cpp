@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <cmath>
 #include "Renderer.hpp"
 
 
@@ -150,7 +151,6 @@ void Renderer::generateValDisplay(float val, std::string label, AModule const &m
 	data->setHeight(10);
 	_moduleTotalHeight += 10;
 	_modData.push_back(data);
-
 
 	// int pos = mod.getPosition() - 1;
 	// _modData[pos]->addValue(val);
