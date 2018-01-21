@@ -1,13 +1,28 @@
-
-
-
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: banthony <banthony@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/21 17:51:08 by banthony          #+#    #+#             */
+/*   Updated: 2018/01/21 17:51:08 by banthony         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "Window.hpp"
 #include "Renderer.hpp"
 #include "AGraphical.hpp"
 #include "NCURSESGraphical.hpp"
+
+/*
+void display(AModule *elemt)
+{
+	std::cout << "Module:\t\t" << elemt->getName() << "\t\tPosition:\t" << elemt->getPosition() << std::endl;
+}
+
+for_each(listModule.begin(), listModule.end(), display);
+*/
 
 int main(int argc, char const *argv[])
 {
@@ -19,7 +34,7 @@ int main(int argc, char const *argv[])
 		// graph = new NCURSESGraphical();
 		return (0);
 	}
-	else
+/*	else
 		graph = new Renderer();
 	while (graph->isOpen())
 	{
@@ -27,5 +42,6 @@ int main(int argc, char const *argv[])
 		graph->refreshVisual();
 	}
 	delete graph;
+ */
 	return (0);
 }

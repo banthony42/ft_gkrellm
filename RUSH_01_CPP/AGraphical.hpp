@@ -23,10 +23,14 @@ class AGraphical : public IMonitorDisplay {
 		bool				_isActive;
 		unsigned int		_x;
 		unsigned int		_y;
+		unsigned int		_nbActiveModule;
 		std::string			_name;
-		std::list<AModule>	_moduleList;
+		std::list<AModule*>	_moduleList;
 
-	public:
+public:
+	class NoModuleException: public std::exception {
+		virtual const char *what() const throw();
+	};
 		AGraphical(void);
 		AGraphical(AGraphical const &src);
 		~AGraphical(void);
@@ -35,9 +39,9 @@ class AGraphical : public IMonitorDisplay {
 		virtual void		refreshVisual(void) = 0;
 		virtual void		generateModuleDisplay(AModule const &src);
 
-		virtual void		generateCurveDisplay(float lastPoint, std::string label) = 0;
-		virtual void		generateValDisplay(float val, std::string label) = 0;
-		virtual void		generateStringDisplay(std::string str, std::string label) = 0;
+		virtual void		generateCurveDisplay(float lastPoint, std::string label, AModule const &mod) = 0;
+		virtual void		generateValDisplay(float val, std::string label, AModule const &mod) = 0;
+		virtual void		generateStringDisplay(std::string str, std::string label, AModule const &mod) = 0;
 
 		virtual void		close(void) = 0;
 		virtual bool		isOpen(void) = 0;
@@ -46,6 +50,8 @@ class AGraphical : public IMonitorDisplay {
 		unsigned int		getX(void)			const;
 		unsigned int		getY(void)			const;
 		std::string			getName(void)		const;
+
+		std::list<AModule *> &get_moduleList();
 
 		void				setIsActive(bool isActive);
 		void				setX(unsigned int x);
