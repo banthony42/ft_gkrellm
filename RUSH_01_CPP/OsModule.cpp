@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:41:56 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 15:09:57 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
+        dataToReturn.setVarLabel("OS Name");
         return (dataToReturn);
     }
     else if (n == 1) {
@@ -103,6 +104,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
+        dataToReturn.setVarLabel("Node Name");
         return (dataToReturn);
     }
     else if (n == 2) {
@@ -113,6 +115,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
+        dataToReturn.setVarLabel("Release Name");
         return (dataToReturn);
     }
     else if (n == 3) {
@@ -123,6 +126,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
+        dataToReturn.setVarLabel("Version");
         return (dataToReturn);
     }
     else if (n == 4) {
@@ -133,6 +137,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
+        dataToReturn.setVarLabel("Machine Name");
         return (dataToReturn);
     }
     return (dataToReturn);
