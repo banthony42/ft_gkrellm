@@ -1,0 +1,9 @@
+*
+!.gitignore
+!src
+!obj
+!res
+!dep
+!include
+!*.config
+!Makefile
