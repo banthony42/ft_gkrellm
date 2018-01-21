@@ -12,6 +12,7 @@
 
 #include <sys/utsname.h>
 #include "OsModule.hpp"
+#include "../include/DataStruct.hpp"
 
 OsModule::OsModule(OsModule const &copy):AModule(copy) {
     *this = copy;
@@ -124,7 +125,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         char *ptr = new char[std::strlen(this->_version) * sizeof(char)];
         std::strncpy(ptr, this->_version, 250);
         dataToReturn.setDataAddr(ptr);
-        dataToReturn.setDataType(CHAR_PTR);
+        dataToReturn.setDataType(NODISP);
         dataToReturn.setDisplayType(STRING);
         dataToReturn.setVarLabel("Version");
         return (dataToReturn);

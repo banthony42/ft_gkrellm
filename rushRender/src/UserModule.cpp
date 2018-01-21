@@ -39,9 +39,9 @@ UserModule::~UserModule(void) {
 
 void UserModule::updateSysInfo(void)
 {
-    if (this->_hostname != 0)
+    if (this->_hostname != NULL)
         delete [] this->_hostname;
-    if (this->_username != 0)
+    if (this->_username != NULL)
         delete [] this->_username;
 
     try
