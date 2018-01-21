@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:37:20 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 23:26:16 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 15:05:41 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Variation of inbound bytes since last update");
 		return (dataToReturn);
 	}
 	else if (n == 1)
@@ -155,6 +156,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Variation of outbound bytes since last update");
 		return (dataToReturn);	
 	}
 	else if (n == 2)
@@ -164,6 +166,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Variation of inbound packets since last update");
 		return (dataToReturn);
 	}
 	else if (n == 3)
@@ -173,6 +176,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Variation of outbound packets since last update");
 		return (dataToReturn);
 	}
 	else if (n == 4)
@@ -182,6 +186,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Inbound Bytes");
 		return (dataToReturn);
 	}
 	else if (n == 5)
@@ -191,6 +196,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Outbound Bytes");
 		return (dataToReturn);	
 	}
 	else if (n == 6)
@@ -200,6 +206,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Inbound Packets");
 		return (dataToReturn);
 	}
 	else if (n == 7)
@@ -209,6 +216,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Outbound Packets");
 		return (dataToReturn);
 	}
 	else if (n == 8)
@@ -218,6 +226,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Inbound Bytes (Previous update)");
 		return (dataToReturn);
 	}
 	else if (n == 9)
@@ -227,6 +236,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Outbound Bytes (Previous update)");
 		return (dataToReturn);	
 	}
 	else if (n == 10)
@@ -236,6 +246,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Inbound Packets (Previous update)");
 		return (dataToReturn);
 	}
 	else if (n == 11)
@@ -245,6 +256,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Outbound Packets (Previous update)");
 		return (dataToReturn);
 	}
 	else
