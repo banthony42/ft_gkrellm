@@ -6,7 +6,7 @@
 /*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:39 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/21 21:48:01 by jpiniau          ###   ########.fr       */
+/*   Updated: 2018/01/21 22:30:13 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ NCURSESGraphical::NCURSESGraphical(void) : AGraphical()
 	noecho();
 	curs_set(0);
 
+	nodelay(stdscr, TRUE);
 	start_color();
 	init_color(COLOR_RED, 100, 200, 400);
 	init_pair(1, COLOR_CYAN, COLOR_RED);
@@ -206,7 +207,7 @@ void						NCURSESGraphical::updateVisual(void)
 		}
 	}
 
-	ch = wgetch(_winCPU);
+	ch = wgetch(stdscr);
 	if (ch == 27)
 		this->_open = false;
 }
@@ -295,7 +296,9 @@ void						NCURSESGraphical::generateValDisplay(float val, std::string label, AMo
 
 void						NCURSESGraphical::generateStringDisplay(std::string str, std::string label, AModule const &mod)
 {
-	static int		y[6] = {2};
+	static int		y[6] = {0};
+	static std::string	oldLabel;
+	static std::string	oldModName;
 	int				i = -1;
 
 	str.insert(0, " : ");
@@ -303,44 +306,74 @@ void						NCURSESGraphical::generateStringDisplay(std::string str, std::string l
 	if (mod.getName().compare("CPU") == 0)
 	{
 		mvwprintw(_winCPU, y[0]++, 1, str.c_str());
+		if (oldLabel.compare(label) == 0 && oldModName.compare(mod.getName()) == 0)
+			y[0] = 2;
 		while (++i < 6)
 			if (i != 0)
 				y[i] = 2;
+		if (y[0] == 2)
+			oldLabel = label;
+		oldModName = mod.getName();
 	}
 	if (mod.getName().compare("OS") == 0)
 	{
 		mvwprintw(_winOS, y[1]++, 1, str.c_str());
+		if (oldLabel.compare(label) == 0 && oldModName.compare(mod.getName()) == 0)
+			y[1] = 2;
 		while (++i < 6)
 			if (i != 1)
 				y[i] = 2;
+		if (y[1] == 2)
+			oldLabel = label;
+		oldModName = mod.getName();
 	}
 	if (mod.getName().compare("USER") == 0)
 	{
 		mvwprintw(_winUser, y[2]++, 1, str.c_str());
+		if (oldLabel.compare(label) == 0 && oldModName.compare(mod.getName()) == 0)
+			y[2] = 2;
 		while (++i < 6)
 			if (i != 2)
 				y[i] = 2;
+		if (y[2] == 2)
+			oldLabel = label;
+		oldModName = mod.getName();
 	}
 	if (mod.getName().compare("RAM") == 0)
 	{
 		mvwprintw(_winRAM, y[3]++, 1, str.c_str());
+		if (oldLabel.compare(label) == 0 && oldModName.compare(mod.getName()) == 0)
+			y[3] = 2;
 		while (++i < 6)
 			if (i != 3)
 				y[i] = 2;
+		if (y[3] == 2)
+			oldLabel = label;
+		oldModName = mod.getName();
 	}
 	if (mod.getName().compare("NET") == 0)
 	{
 		mvwprintw(_winNetwork, y[4]++, 1, str.c_str());
+		if (oldLabel.compare(label) == 0 && oldModName.compare(mod.getName()) == 0)
+			y[4] = 2;
 		while (++i < 6)
 			if (i != 4)
 				y[i] = 2;
+		if (y[4] == 2)
+			oldLabel = label;
+		oldModName = mod.getName();
 	}
 	if (mod.getName().compare("CLOCK") == 0)
 	{
 		mvwprintw(_winClock, y[5]++, 1, str.c_str());
+		if (oldLabel.compare(label) == 0 && oldModName.compare(mod.getName()) == 0)
+			y[5] = 2;
 		while (++i < 6)
 			if (i != 5)
 				y[i] = 2;
+		if (y[5] == 2)
+			oldLabel = label;
+		oldModName = mod.getName();
 	}
 
 }
