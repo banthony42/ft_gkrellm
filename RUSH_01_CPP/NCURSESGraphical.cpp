@@ -6,7 +6,7 @@
 /*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:39 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/21 15:55:38 by jpiniau          ###   ########.fr       */
+/*   Updated: 2018/01/21 16:09:59 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,17 +156,17 @@ void						NCURSESGraphical::generateValDisplay(float val, std::string label)
 	os << val;
 	str = os.str();
 	if (label.compare("cpu") == 0)
-		mvwprintw(_winCPU, 16, 1, str.c_str());
+		mvwprintw(_winCPU, 18, 1, str.c_str());
 	else if (label.compare("os") == 0)
-		mvwprintw(_winOS, 16, 1, str.c_str());
+		mvwprintw(_winOS, 18 1, str.c_str());
 	else if (label.compare("user") == 0)
-		mvwprintw(_winUser, 16, 1, str.c_str());
+		mvwprintw(_winUser, 18, 1, str.c_str());
 	else if (label.compare("ram") == 0)
-		mvwprintw(_winRAM, 16, 1, str.c_str());
+		mvwprintw(_winRAM, 18, 1, str.c_str());
 	else if (label.compare("network") == 0)
-		mvwprintw(_winNetwork, 16, 1, str.c_str());
+		mvwprintw(_winNetwork, 18, 1, str.c_str());
 	else if (label.compare("clock") == 0)
-		mvwprintw(_winClock, 16, 1, str.c_str());
+		mvwprintw(_winClock, 18, 1, str.c_str());
 }
 
 void						NCURSESGraphical::generateStringDisplay(std::string str, std::string label)
