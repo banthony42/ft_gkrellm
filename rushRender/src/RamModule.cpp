@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 15:16:32 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 21:36:33 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ DataStruct const RamModule::getData(unsigned int n) const
     else if (n == 3) {
         dataToReturn.setDataAddr(new double(this->_used_memory));
         dataToReturn.setDataType(DOUBLE);
-        dataToReturn.setDisplayType(GRAPH);
+        dataToReturn.setDisplayType(VALUE);
         dataToReturn.setVarLabel("Total Used RAM");
         return (dataToReturn);
     }
@@ -132,7 +132,7 @@ DataStruct const RamModule::getData(unsigned int n) const
     else if (n == 5) {
         dataToReturn.setDataAddr(new double(this->_app_mem));
         dataToReturn.setDataType(DOUBLE);
-        dataToReturn.setDisplayType(GRAPH);
+        dataToReturn.setDisplayType(VALUE);
         dataToReturn.setVarLabel("Application Memory");
         return (dataToReturn);
     }
