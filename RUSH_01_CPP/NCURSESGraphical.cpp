@@ -6,13 +6,13 @@
 /*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:39 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/20 22:44:23 by jpiniau          ###   ########.fr       */
+/*   Updated: 2018/01/21 15:51:10 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "NCURSESGraphical.hpp"
 
-NCURSESGraphical::NCURSESGraphical(void) //: AGraphical()
+NCURSESGraphical::NCURSESGraphical(void)// : AGraphical()
 {
 	initscr();
 	noecho();
@@ -28,7 +28,7 @@ NCURSESGraphical::NCURSESGraphical(void) //: AGraphical()
 	_winRAM = newwin(20, 102, 20, 102);
 	_winNetwork = newwin(20, 102, 40, 0);
 	_winClock = newwin(20, 102, 40, 102);
-	
+
 	nodelay(_winCPU, TRUE);
 	nodelay(_winOS, TRUE);
 	nodelay(_winUser, TRUE);
@@ -50,18 +50,22 @@ NCURSESGraphical::NCURSESGraphical(void) //: AGraphical()
 	box(_winNetwork, 0, 0);
 	box(_winClock, 0, 0);
 
+	_cpuGraph = initGraph();
+	_ramGraph = initGraph();
+	_networkGraph = initGraph();
+	
 	refresh();
 	wrefresh(_winCPU);
 	wrefresh(_winOS);
 	wrefresh(_winUser);
 	wrefresh(_winRAM);
 	wrefresh(_winNetwork);
-	wrefresh(_winClock);
+	wrefresh(_winClock);_networkGraph = initGraph();
 
 	_quit = 0;
 }
 
-NCURSESGraphical::NCURSESGraphical(NCURSESGraphical const & src) //: AGraphical(src)
+NCURSESGraphical::NCURSESGraphical(NCURSESGraphical const & src)// : AGraphical(src)
 {
 	*this = src;
 }
@@ -74,6 +78,148 @@ NCURSESGraphical::~NCURSESGraphical(void)
 NCURSESGraphical const &	NCURSESGraphical::operator=(NCURSESGraphical const & rhs)
 {
 	return (rhs);
+}
+
+void						NCURSESGraphical::updateVisual(void)
+{
+	// ******* test ****** //
+	/*
+	static int		i = 0;
+	int				ch = -1;
+	static int		ii = 1;
+	static clock_t	this_time = clock();
+	static clock_t	last_time = this_time;
+	static double	time_counter = 0;
+
+	ch = wgetch(_winCPU);
+	if (ch == 27)
+		_quit = true;
+
+	this_time = clock();
+	time_counter += (double) (this_time - last_time);
+	last_time = this_time;
+	if (time_counter > (double)( (0.1) * CLOCKS_PER_SEC))
+	{
+		time_counter -= (double)( (0.1) * CLOCKS_PER_SEC);
+		i += ii;
+		if (i >= 99 || i <= 0)
+			ii = -ii;
+
+		updateGraph(_cpuGraph, i / 10);
+		updateGraph(_ramGraph, i / 10);
+		updateGraph(_networkGraph, i / 10);
+	}
+	*/
+	// ********* FIN test ******//
+	int				j = -1;
+
+	while (++j < 10)
+		mvwprintw(_winCPU, 5 + j, 1, _cpuGraph[j].c_str());
+	j = -1;
+	while (++j < 10)
+		mvwprintw(_winRAM, 5 + j, 1, _ramGraph[j].c_str());
+	j = -1;
+	while (++j < 10)
+		mvwprintw(_winNetwork, 5 + j, 1, _networkGraph[j].c_str());
+	j = -1;
+	
+}
+
+void						NCURSESGraphical::refreshVisual(void)
+{
+	refresh();
+	wrefresh(_winCPU);
+	wrefresh(_winOS);
+	wrefresh(_winUser);
+	wrefresh(_winRAM);
+	wrefresh(_winNetwork);
+	wrefresh(_winClock);
+}
+
+void						NCURSESGraphical::generateCurveDisplay(float lastPoint, std::string label)
+{
+	// definir les label //
+	if (label.compare("cpu") == 0)
+		updateGraph(_cpuGraph, static_cast<int>(lastPoint / 10));
+	else if (label.compare("ram") == 0)
+		updateGraph(_ramGraph, static_cast<int>(lastPoint / 10));
+	else if (label.compare("network") == 0)
+		updateGraph(_networkGraph, static_cast<int>(lastPoint / 10));
+}
+
+void						NCURSESGraphical::generateValDisplay(float val, std::string label)
+{
+	// definir les label //
+	std::ostringstream os;
+	std::string str;
+
+	os << val;
+	str = os.str();
+	if (label.compare("cpu") == 0)
+		mvwprintw(_winCPU, 16, 1, str.c_str());
+	else if (label.compare("os") == 0)
+		mvwprintw(_winOS, 16, 1, str.c_str());
+	else if (label.compare("user") == 0)
+		mvwprintw(_winUser, 16, 1, str.c_str());
+	else if (label.compare("ram") == 0)
+		mvwprintw(_winRAM, 16, 1, str.c_str());
+	else if (label.compare("network") == 0)
+		mvwprintw(_winNetwork, 16, 1, str.c_str());
+	else if (label.compare("clock") == 0)
+		mvwprintw(_winClock, 16, 1, str.c_str());
+}
+
+void						NCURSESGraphical::generateStringDisplay(std::string str, std::string label)
+{
+	// definir les label //
+	if (label.compare("cpu") == 0)
+		mvwprintw(_winCPU, 16, 1, str.c_str());
+	else if (label.compare("os") == 0)
+		mvwprintw(_winOS, 16, 1, str.c_str());
+	else if (label.compare("user") == 0)
+		mvwprintw(_winUser, 16, 1, str.c_str());
+	else if (label.compare("ram") == 0)
+		mvwprintw(_winRAM, 16, 1, str.c_str());
+	else if (label.compare("network") == 0)
+		mvwprintw(_winNetwork, 16, 1, str.c_str());
+	else if (label.compare("clock") == 0)
+		mvwprintw(_winClock, 16, 1, str.c_str());
+
+}
+
+std::string *				NCURSESGraphical::initGraph(void)
+{
+	std::string *graph = new std::string[10];
+	int i = -1;
+	int j = -1;
+
+	while (++i < 10)
+	{
+		j = -1;
+		while (++j < 100)
+		{
+			graph[i] = graph[i] + ".";
+		}
+	}
+	return (graph);
+}
+
+void						NCURSESGraphical::updateGraph(std::string * graph, int val)
+{
+	int i = -1;
+	int j = -1;
+
+
+	while (++i < 10)
+	{
+		j = -1;
+		while (++j < 99)
+		{
+			graph[i][j] = graph[i][j + 1];
+		}
+		graph[i][j] = '.';
+	}
+	graph[9 - val][99] = '*';
 }
 
 bool						NCURSESGraphical::getQuit(void) const {return (_quit);}
