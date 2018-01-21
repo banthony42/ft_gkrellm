@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:42:04 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 15:16:32 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,36 +98,42 @@ DataStruct const RamModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(new uint64_t(this->_mem_size));
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Total Amount of RAM");
         return (dataToReturn);
     }
     else if (n == 1) {
         dataToReturn.setDataAddr(new uint64_t(this->_usable_memory));
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Total Usable RAM");
         return (dataToReturn);
     }
     else if (n == 2) {
         dataToReturn.setDataAddr(new uint64_t(this->_unused_memory));
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Total Unused RAM");
         return (dataToReturn);
     }
     else if (n == 3) {
         dataToReturn.setDataAddr(new double(this->_used_memory));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Total Used RAM");
         return (dataToReturn);
     }
     else if (n == 4) {
         dataToReturn.setDataAddr(new double(this->_virtual_mem));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Total Virtual Memory");
         return (dataToReturn);
     }
     else if (n == 5) {
         dataToReturn.setDataAddr(new double(this->_app_mem));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Application Memory");
         return (dataToReturn);
     }
     else if (n == 6) {
@@ -136,24 +142,28 @@ DataStruct const RamModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Cached Files");
         return (dataToReturn);
     }
     else if (n == 7) {
         dataToReturn.setDataAddr(new double(this->_wired_memory));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Wired RAM");
         return (dataToReturn);
     }
     else if (n == 8) {
         dataToReturn.setDataAddr(new double(this->_compress_mem));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Compressed RAM");
         return (dataToReturn);
     }
     else if (n == 9) {
-        dataToReturn.setDataAddr(new uint64_t(this->_memsize););
+        dataToReturn.setDataAddr(new uint64_t(this->_memsize));
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setVarLabel("Total Raw Amount of RAM");
         return (dataToReturn);
     }
     else if (n == 10) {
@@ -164,6 +174,7 @@ DataStruct const RamModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(XSWUSAGE);
         dataToReturn.setDisplayType(XSW_USAGE);
+        dataToReturn.setVarLabel("Swap Usage Structure");
         return (dataToReturn);
     }
     else if (n == 11) {
@@ -174,6 +185,7 @@ DataStruct const RamModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(VMSTAT64);
         dataToReturn.setDisplayType(VM_STAT64);
+        dataToReturn.setVarLabel("Virtual Memory Structure");
         return (dataToReturn);
     }
     return (dataToReturn);
