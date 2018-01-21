@@ -15,6 +15,7 @@
 #include "Renderer.hpp"
 #include "AGraphical.hpp"
 #include "NCURSESGraphical.hpp"
+#include "../include/NCURSESGraphical.hpp"
 
 /*
 void display(AModule *elemt)
@@ -34,7 +35,13 @@ int main(int argc, char const *argv[])
 		AGraphical *graph;
 		if (argc > 1 && argv[1][0] == 'n')
 		{
-			// graph = new NCURSESGraphical();
+			NCURSESGraphical *ncurse = new NCURSESGraphical();
+			while (ncurse->isOpen() == true)
+			{
+				ncurse->updateVisual();
+				ncurse->refreshVisual();
+			}
+			ncurse->close();
 			return (0);
 		}
 		else

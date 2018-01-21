@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <list>
 #include "NCURSESGraphical.hpp"
+#include "../include/AModule.hpp"
+#include "../include/NCURSESGraphical.hpp"
 
 NCURSESGraphical::NCURSESGraphical(void) : AGraphical()
 {
@@ -31,7 +34,7 @@ NCURSESGraphical::NCURSESGraphical(void) : AGraphical()
 	{
 		if ((*it)->getIsActive() == true)
 		{
-			if ((*it)->getName() == "cpu")
+			if ((*it)->getName() == "CPU")
 			{
 				{
 					_winCPU = newwin(20, 102, _y, _x);
@@ -164,7 +167,7 @@ NCURSESGraphical::NCURSESGraphical(void) : AGraphical()
 		}	
 	}
 
-	_quit = 0;
+	_open = true;
 }
 
 NCURSESGraphical::NCURSESGraphical(NCURSESGraphical const & src)  : AGraphical(src)
@@ -195,12 +198,17 @@ void						NCURSESGraphical::updateVisual(void)
 	if (time_counter > (double)( (0.1) * CLOCKS_PER_SEC))
 	{
 		time_counter -= (double)( (0.1) * CLOCKS_PER_SEC);
-		// ?? //
+		std::list<AModule*>::iterator it = this->get_moduleList().begin();
+		while (it != this->get_moduleList().end())
+		{
+			(*it)->updateSysInfo();
+			it++;
+		}
 	}
 
 	ch = wgetch(_winCPU);
 	if (ch == 27)
-		_quit = true;
+		this->_open = false;
 }
 
 void						NCURSESGraphical::refreshVisual(void)
@@ -211,12 +219,18 @@ void						NCURSESGraphical::refreshVisual(void)
 	{
 		if ((*it)->getIsActive() == true)
 		{
+			generateModuleDisplay(**it);
 			if ((*it)->getName().compare("CPU") == 0)
+			{
 				wrefresh(_winCPU);
-			else if ((*it)->getName().compare("OS") == 0)
+			}
+			else if ((*it)->getName().compare("OS") == 0) {
 				wrefresh(_winOS);
+			}
 			else if ((*it)->getName().compare("USER") == 0)
+			{
 				wrefresh(_winUser);
+			}
 			else if ((*it)->getName().compare("RAM") == 0)
 				wrefresh(_winRAM);
 			else if ((*it)->getName().compare("NET") == 0)
@@ -250,9 +264,7 @@ void						NCURSESGraphical::generateCurveDisplay(float lastPoint, std::string la
 	else if (label.compare("network") == 0)
 	updateGraph(_networkGraph, static_cast<int>(lastPoint / 10));
 	*/
-	static_cast<void>(lastPoint);
-	static_cast<void>(label);
-	static_cast<void>(mod);
+	generateValDisplay(lastPoint, label, mod);
 }
 
 void						NCURSESGraphical::generateValDisplay(float val, std::string label, AModule const &mod)
@@ -349,9 +361,12 @@ void						NCURSESGraphical::updateGraph(std::string * graph, int val)
 	graph[9 - val][99] = '*';
 }
 
-bool						NCURSESGraphical::getQuit(void) const {return (_quit);}
+bool						NCURSESGraphical::isOpen(void) {return (_open);}
 
+void 						NCURSESGraphical::close() {
+	NCURSESGraphical::~NCURSESGraphical();
+}
 void						NCURSESGraphical::setQuit(bool const & value)
 {
-	this->_quit = value;
+	this->_open = value;
 }
