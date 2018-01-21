@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 15:09:57 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 19:17:48 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ OsModule const &OsModule::operator=(OsModule const &copy) {
 }
 
 OsModule::OsModule(bool isActive, int ID, std::string name, int position, int len):
-        AModule(isActive, ID, name, position, len), _os(0), _nodeName(0), _release(0), _version(0), _machine(0) {
+        AModule(isActive, ID, name, position, len), _os(NULL), _nodeName(NULL), _release(NULL), _version(NULL), _machine(NULL) {
     return ;
 }
 
 OsModule::~OsModule(void) {
-    if (this->_os != 0)
+    if (this->_os != NULL)
         delete [] this->_os;
-    if (this->_nodeName != 0)
+    if (this->_nodeName != NULL)
         delete [] this->_nodeName;
-    if (this->_release != 0)
+    if (this->_release != NULL)
         delete [] this->_release;
-    if (this->_version != 0)
+    if (this->_version != NULL)
         delete [] this->_version;
-    if (this->_machine != 0)
+    if (this->_machine != NULL)
         delete [] this->_machine;
     return ;
 }
@@ -47,15 +47,15 @@ void OsModule::updateSysInfo(void)
 {
     struct utsname	sys;
 
-    if (this->_os != 0)
+    if (this->_os != NULL)
         delete [] this->_os;
-    if (this->_nodeName != 0)
+    if (this->_nodeName != NULL)
         delete [] this->_nodeName;
-    if (this->_release != 0)
+    if (this->_release != NULL)
         delete [] this->_release;
-    if (this->_version != 0)
+    if (this->_version != NULL)
         delete [] this->_version;
-    if (this->_machine != 0)
+    if (this->_machine != NULL)
         delete [] this->_machine;
     try
     {
@@ -86,7 +86,7 @@ DataStruct const OsModule::getData(unsigned int n) const
 {
     DataStruct dataToReturn;
     if (n == 0) {
-        if (this->_os == 0)
+        if (this->_os == NULL)
             return (dataToReturn);
         char *ptr = new char[std::strlen(this->_os) * sizeof(char)];
         std::strcpy(ptr, this->_os);
@@ -97,7 +97,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 1) {
-        if (this->_nodeName == 0)
+        if (this->_nodeName == NULL)
             return (dataToReturn);
         char *ptr = new char[std::strlen(this->_nodeName) * sizeof(char)];
         std::strcpy(ptr, this->_nodeName);
@@ -108,7 +108,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 2) {
-        if (this->_release == 0)
+        if (this->_release == NULL)
             return (dataToReturn);
         char *ptr = new char[std::strlen(this->_release) * sizeof(char)];
         std::strcpy(ptr, this->_release);
@@ -119,7 +119,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 3) {
-        if (this->_version == 0)
+        if (this->_version == NULL)
             return (dataToReturn);
         char *ptr = new char[std::strlen(this->_version) * sizeof(char)];
         std::strcpy(ptr, this->_version);
@@ -130,7 +130,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 4) {
-        if (this->_machine == 0)
+        if (this->_machine == NULL)
             return (dataToReturn);
         char *ptr = new char[std::strlen(this->_machine) * sizeof(char)];
         std::strcpy(ptr, this->_machine);

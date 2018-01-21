@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:52:40 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/21 14:58:06 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 19:27:18 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,18 @@ DataStruct &    DataStruct::operator=(DataStruct const & rhs) {
 	this->setVarLabel(rhs.getVarLabel());
 	if (this->_dataType == CHAR_PTR)
 	{
-		char	*str;
-		char	*ptr;
+		if (rhs.getDataAddr() == NULL)
+			this->_dataAddr = NULL;
+		else
+		{
+			char	*str;
+			char	*ptr;
 
-		str = reinterpret_cast<char*>(rhs.getDataAddr());
-		ptr = new char[std::strlen(str) * sizeof(char)];
-		std::strcpy(ptr, str);
-		this->_dataAddr = ptr;
+			str = reinterpret_cast<char*>(rhs.getDataAddr());
+			ptr = new char[std::strlen(str) * sizeof(char)];
+			std::strcpy(ptr, str);
+			this->_dataAddr = ptr;
+		}
 	}
 	else if (this->_dataType == INT)
 	{
