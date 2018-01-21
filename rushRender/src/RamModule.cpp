@@ -29,7 +29,7 @@ RamModule::RamModule(bool isActive, int ID, std::string name, int position, int 
         _mem_size(0),       _usable_memory(0),  _unused_memory(0),
         _used_memory(0),    _virtual_mem(0),    _app_mem(0),
         _cached_files(0),   _wired_memory(0),   _compress_mem(0),
-        _memsize(0),        _swapusage(0),      _vmstat(0)
+        _memsize(0),        _swapusage(NULL),      _vmstat(NULL)
 {
     return;
 }
@@ -44,9 +44,9 @@ RamModule::~RamModule(void) {
 
 void RamModule::updateSysInfo(void)
 {
-    if (this->_vmstat != 0)
+    if (this->_vmstat != NULL)
         delete this->_vmstat;
-    if (this->_swapusage != 0)
+    if (this->_swapusage != NULL)
         delete this->_swapusage;
 
     this->_vmstat = new vm_statistics64_data_t;
@@ -72,18 +72,18 @@ void RamModule::updateSysInfo(void)
 
 
         //TOP
-        this->_usable_memory = static_cast <uint64_t> (this->_memsize - ((*this->_vmstat).free_count * pagesize));
-        this->_unused_memory = static_cast <uint64_t> ((*this->_vmstat).free_count * pagesize);
+        this->_usable_memory = static_cast <uint64_t> (this->_memsize - ((*this->_vmstat).free_count * pagesize)) / (1024 * 1024);
+        this->_unused_memory = static_cast <uint64_t> ((*this->_vmstat).free_count * pagesize) / (1024 * 1024);
 
         //ACTIVITY MONITOR
         this->_virtual_mem =    static_cast <double> (this->_memsize +
-                                static_cast <double> ((*this->_vmstat).total_uncompressed_pages_in_compressor * pagesize));
+                                static_cast <double> ((*this->_vmstat).total_uncompressed_pages_in_compressor * pagesize)) / (1024 * 1024);
 
-        this->_app_mem = static_cast <double>        ((*this->_vmstat).internal_page_count * pagesize);
-        this->_cached_files = static_cast <double>   ((*this->_vmstat).external_page_count * pagesize);
-        this->_wired_memory = static_cast <double>   ((*this->_vmstat).wire_count * pagesize);
-        this->_compress_mem = static_cast <double>   ((*this->_vmstat).compressor_page_count * pagesize);
-        this->_used_memory = this->_app_mem + this->_wired_memory + this->_compress_mem;
+        this->_app_mem = static_cast <double>        ((*this->_vmstat).internal_page_count * pagesize) / (1024 * 1024);
+        this->_cached_files = static_cast <double>   ((*this->_vmstat).external_page_count * pagesize) / (1024 * 1024);
+        this->_wired_memory = static_cast <double>   ((*this->_vmstat).wire_count * pagesize) / (1024 * 1024);
+        this->_compress_mem = static_cast <double>   ((*this->_vmstat).compressor_page_count * pagesize) / (1024 * 1024);
+        this->_used_memory = this->_app_mem + this->_wired_memory + this->_compress_mem / (1024 * 1024);
     }
     catch (std::exception const &e)
     {
@@ -118,7 +118,7 @@ DataStruct const RamModule::getData(unsigned int n) const
     else if (n == 3) {
         dataToReturn.setDataAddr(new double(this->_used_memory));
         dataToReturn.setDataType(DOUBLE);
-        dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setDisplayType(GRAPH);
         dataToReturn.setVarLabel("Total Used RAM");
         return (dataToReturn);
     }
@@ -132,7 +132,7 @@ DataStruct const RamModule::getData(unsigned int n) const
     else if (n == 5) {
         dataToReturn.setDataAddr(new double(this->_app_mem));
         dataToReturn.setDataType(DOUBLE);
-        dataToReturn.setDisplayType(VALUE);
+        dataToReturn.setDisplayType(GRAPH);
         dataToReturn.setVarLabel("Application Memory");
         return (dataToReturn);
     }
