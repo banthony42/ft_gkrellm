@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:42:11 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 15:07:51 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ DataStruct const UserModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
+        dataToReturn.setVarLabel("Hostname");
         return (dataToReturn);
     }
     else if (n == 1) {
@@ -82,6 +83,7 @@ DataStruct const UserModule::getData(unsigned int n) const
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
+        dataToReturn.setVarLabel("Username");
         return (dataToReturn);
     }
     return (dataToReturn);
