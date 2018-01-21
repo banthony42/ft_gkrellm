@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:43:21 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 20:23:10 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class CpuModule : public AModule {
 		size_t				_totalIdle;
 		uint64_t			_maxCoreClock;
 		uint64_t			_minCoreClock;
+		double				_cpuUsage;
 
 	public:
 		CpuModule(void);
@@ -65,6 +66,7 @@ class CpuModule : public AModule {
 		size_t				getTotalIdle(void)		const;
 		uint64_t			getMaxCoreClock(void)	const;
 		uint64_t			getMinCoreClock(void)	const;
+		double				getCpuUsage(void)		const;
 
 		void				setCpuFrequency(uint64_t cpuFrequency);
 		void				setNbCores(int nbCores);
@@ -85,6 +87,7 @@ class CpuModule : public AModule {
 		void				setTotalIdle(size_t totalIdle);
 		void				setMaxCoreClock(uint64_t maxCoreClock);
 		void				setMinCoreClock(uint64_t minCoreClock);
+		void				getCpuUsage(double cpuUsage);
 };
 
 #endif

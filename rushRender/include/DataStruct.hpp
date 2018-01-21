@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:42:59 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:58:10 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 19:47:33 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 /*clock module*/
 # include <ctime>
 
-enum    E_VarType {UNKNOWN_TYPE, CHAR_PTR, INT, LONGINT, DOUBLE, TIME_T, UINT64, UINT32, SIZET, TIMEVAL, XSWUSAGE, VMSTAT64};
+enum    E_VarType {UNKNOWN_TYPE, CHAR_PTR, INT, LONGINT, DOUBLE, TIME_T, UINT64, UINT32, SIZET, TIMEVAL, XSWUSAGE, VMSTAT64, NODISP};
 enum    E_DisplayType {UNKNOWN_DISPLAY, STRING, VALUE, GRAPH, TIME_VAL, XSW_USAGE, VM_STAT64};
 
 class       DataStruct {
