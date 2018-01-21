@@ -44,12 +44,12 @@ Renderer::Renderer() :
 		if (!mod->getIsActive())
 			break;
 		_moduleTotalHeight += mod->getLen();
-		_modCount++;
-		_modData.push_back(new TextureData());
-		int pos = mod->getPosition() - 1;
+		// _modCount++;
+		// _modData.push_back(new TextureData());
+		// int pos = mod->getPosition() - 1;
 
-		_modData[pos]->setText(mod->getName());
-		_modData[pos]->setHeight(mod->getLen());
+		// _modData[pos]->setText(mod->getName());
+		// _modData[pos]->setHeight(mod->getLen());
 	}
 	// _modCount = 10;
 }
@@ -79,51 +79,99 @@ void Renderer::updateVisual()
 
 void Renderer::refreshVisual()
 {
-	unsigned int h = _win.getHeight() / _modCount;
-	_textRD.update_font_data(_win.getWidth(), h);
-	glViewport(0, h, _win.getWidth(), h);
-	for (size_t i = 0; i < _modCount; i++) {
-		glViewport(0, h * (_modCount - i - 1), _win.getWidth(), h);
-		_courbe.bind();
-		glBindVertexArray(_vao);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_1D, _modData[i]->getTexId());
-		glUniform1f(_uni_min, _modData[i]->getMin());
-		glUniform1f(_uni_max, _modData[i]->getMax());
-		glUniform1i(_uni_tex, 0);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);
-		_textRD.render_text(_modData[i]->getText(), -1, -1);
+	unsigned int modCount = _modData.size();
+	std::cout << "modCount : " << modCount << std::endl;
+	if (modCount)
+	{
+		unsigned int h = _win.getHeight() / modCount;
+		_textRD.update_font_data(_win.getWidth(), h);
+		glViewport(0, h, _win.getWidth(), h);
+		for (size_t i = 0; i < modCount; i++) {
+			glViewport(0, h * (modCount - i - 1), _win.getWidth(), h);
+			_courbe.bind();
+			glBindVertexArray(_vao);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_1D, _modData[i]->getTexId());
+			glUniform1f(_uni_min, _modData[i]->getMin());
+			glUniform1f(_uni_max, _modData[i]->getMax());
+			glUniform1i(_uni_tex, 0);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+			glBindVertexArray(0);
+			_textRD.render_text(_modData[i]->getText(), -1, -1);
+		}
 	}
 	_win.render();
 }
 
 void Renderer::generateCurveDisplay(float lastPoint, std::string label, AModule const &mod)
 {
-	std::cout << "generateCurveDisplay : " << lastPoint << std::endl;
-	int pos = mod.getPosition() - 1;
-	_modData[pos]->addValue(lastPoint);
-	(void)lastPoint;
-	(void)label;
-	(void)mod;
+	// std::cout << "generateCurveDisplay : " << lastPoint << std::endl;
+	std::string cd = mod.getName() + '.' + label;
+	for (size_t i = 0; i < _modData.size(); i++)
+	{
+		if (_modData[i]->getName() == cd)
+		{
+			std::ostringstream str;
+			str << label << " : " << lastPoint;
+			_modData[i]->setText(str.str());
+			_modData[i]->addValue(lastPoint);
+			_modData[i]->setHeight(40);
+			_moduleTotalHeight += 40;
+			return;
+		}
+	}
+	TextureData *data = new TextureData();
+	data->setName(cd);
+	_modCount++;
+	_modData.push_back(data);
 }
 
 void Renderer::generateValDisplay(float val, std::string label, AModule const &mod)
 {
-	std::cout << "generateValDisplay : (" << label << ")" << val << std::endl;
-	int pos = mod.getPosition() - 1;
-	_modData[pos]->addValue(val);
-	(void)val;
-	(void)label;
-	(void)mod;
+	// std::cout << "generateValDisplay : (" << label << ")" << val << std::endl;
+	std::string cd = mod.getName() + '.' + label;
+	for (size_t i = 0; i < _modData.size(); i++)
+	{
+		if (_modData[i]->getName() == cd)
+		{
+			std::ostringstream str;
+			str << label << " : " << val;
+			_modData[i]->setText(str.str());
+			_modData[i]->setHeight(10);
+			_moduleTotalHeight += 10;
+			return;
+		}
+	}
+	TextureData *data = new TextureData();
+	data->setName(cd);
+	_modCount++;
+	_modData.push_back(data);
+
+
+	// int pos = mod.getPosition() - 1;
+	// _modData[pos]->addValue(val);
 }
 
-void Renderer::generateStringDisplay(std::string str, std::string label, AModule const &mod)
+void Renderer::generateStringDisplay(std::string val, std::string label, AModule const &mod)
 {
-	std::cout << "generateStringDisplay : " << str << std::endl;
-	(void)str;
-	(void)label;
-	(void)mod;
+	// std::cout << "generateStringDisplay : " << str << std::endl;
+	std::string cd = mod.getName() + '.' + label;
+	for (size_t i = 0; i < _modData.size(); i++)
+	{
+		if (_modData[i]->getName() == cd)
+		{
+			std::ostringstream str;
+			str << label << " : " << val;
+			_modData[i]->setText(str.str());
+			_modData[i]->setHeight(10);
+			_moduleTotalHeight += 10;
+			return;
+		}
+	}
+	TextureData *data = new TextureData();
+	data->setName(cd);
+	_modCount++;
+	_modData.push_back(data);
 }
 
 void Renderer::close(void)

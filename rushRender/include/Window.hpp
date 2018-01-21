@@ -16,7 +16,7 @@
 class Window
 {
 public:
-	Window(unsigned int width = 512, unsigned int height = 480);
+	Window(unsigned int width = 540, unsigned int height = 480);
 	~Window();
 	void				loop(void);
 	void				update(void);
