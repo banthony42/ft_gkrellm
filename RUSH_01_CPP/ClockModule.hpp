@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClockModule.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 14:55:23 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/21 14:09:31 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:31:22 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define CLOCKMODULE_HPP
 
 # include "AModule.hpp"
-
-# include <ctime>
-# include <time.h>
 
 class ClockModule : public AModule {
     private:

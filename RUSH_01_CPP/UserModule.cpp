@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   UserModule.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: banthony <banthony@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 23:22:13 by banthony          #+#    #+#             */
-/*   Updated: 2018/01/20 23:22:13 by banthony         ###   ########.fr       */
+/*   Updated: 2018/01/21 14:32:33 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <zconf.h>
-#include <iostream>
 #include "UserModule.hpp"
 
 UserModule::UserModule(UserModule const &copy): AModule(copy) {

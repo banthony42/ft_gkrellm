@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   OsModule.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: banthony <banthony@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:17:04 by banthony          #+#    #+#             */
-/*   Updated: 2018/01/20 22:17:04 by banthony         ###   ########.fr       */
+/*   Updated: 2018/01/21 14:33:46 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "OsModule.hpp"
-#include <sys/utsname.h>
-#include <iostream>
 
 OsModule::OsModule(OsModule const &copy):AModule(copy) {
     *this = copy;

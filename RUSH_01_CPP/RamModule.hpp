@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RamModule.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: banthony <banthony@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:22:17 by banthony          #+#    #+#             */
-/*   Updated: 2018/01/20 16:22:17 by banthony         ###   ########.fr       */
+/*   Updated: 2018/01/21 14:33:00 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define RAMMODULE_HPP
 
 # include "AModule.hpp"
-
-# include <sys/types.h>
-# include <sys/sysctl.h>
-# include <mach/vm_statistics.h>
 
 /*
 **  Nom d'attribut avec underscore: valeurs pré-calculées en bytes

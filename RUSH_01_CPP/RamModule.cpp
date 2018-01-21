@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   RamModule.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: banthony <banthony@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:27:36 by banthony          #+#    #+#             */
-/*   Updated: 2018/01/20 16:27:36 by banthony         ###   ########.fr       */
+/*   Updated: 2018/01/21 14:33:26 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mach/mach_host.h>
-#include <iostream>
 #include "RamModule.hpp"
 
 RamModule::RamModule(RamModule const &copy): AModule(copy) {

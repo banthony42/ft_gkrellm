@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:16:58 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 11:11:27 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:34:08 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define NETWORK_MODULE_HPP
 
 # include "AModule.hpp"
-# include <net/route.h>
-# include <sys/sysctl.h>
-# include <iostream>
-# include <net/if.h>
-# include <sstream>
-# include <time.h>
 
 class NetworkModule : public AModule {
 	private:

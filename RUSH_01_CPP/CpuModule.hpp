@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:01:52 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 21:42:23 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:32:10 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define CPU_MODULE
 
 # include "AModule.hpp"
-# include <sys/types.h>
-# include <sys/sysctl.h>
-# include <mach/mach_host.h>
-# include <stdlib.h>
-# include <time.h>
-# include <cstring>
 
 class CpuModule : public AModule {
 	private:
