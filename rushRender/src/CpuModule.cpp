@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 15:37:17 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 19:32:57 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		*ptr = this->_totalCpu;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
-		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Total Cpu");
 		return (dataToReturn);
 	}
@@ -338,7 +338,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		*ptr = this->_totalUser;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
-		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Total user Cpu Usage");
 		return (dataToReturn);
 	}
@@ -348,7 +348,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		*ptr = this->_totalIdle;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
-		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Total iddle Cpu Usage");
 		return (dataToReturn);
 	}

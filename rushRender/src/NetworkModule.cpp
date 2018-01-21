@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:37:20 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 15:17:22 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 19:30:55 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		*ptr = this->_bytesInDiff;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
-		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Variation of inbound bytes since last update");
 		return (dataToReturn);
 	}
@@ -155,7 +155,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		*ptr = this->_bytesOutDiff;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
-		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Variation of outbound bytes since last update");
 		return (dataToReturn);	
 	}
@@ -165,7 +165,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		*ptr = this->_packetInDiff;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
-		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Variation of inbound packets since last update");
 		return (dataToReturn);
 	}
@@ -175,7 +175,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		*ptr = this->_packetOutDiff;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
-		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Variation of outbound packets since last update");
 		return (dataToReturn);
 	}
