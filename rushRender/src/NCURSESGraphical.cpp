@@ -222,21 +222,39 @@ void						NCURSESGraphical::refreshVisual(void)
 			generateModuleDisplay(**it);
 			if ((*it)->getName().compare("CPU") == 0)
 			{
+				wbkgd(_winCPU, COLOR_PAIR(1));
+				box(_winCPU, 0, 0);
 				wrefresh(_winCPU);
 			}
 			else if ((*it)->getName().compare("OS") == 0) {
+				wbkgd(_winOS, COLOR_PAIR(1));
+				box(_winOS, 0, 0);
 				wrefresh(_winOS);
 			}
 			else if ((*it)->getName().compare("USER") == 0)
 			{
+				wbkgd(_winUser, COLOR_PAIR(1));
+				box(_winUser, 0, 0);
 				wrefresh(_winUser);
 			}
 			else if ((*it)->getName().compare("RAM") == 0)
+			{
+				wbkgd(_winRAM, COLOR_PAIR(1));
+				box(_winRAM, 0, 0);
 				wrefresh(_winRAM);
+			}
 			else if ((*it)->getName().compare("NET") == 0)
+			{
+				wbkgd(_winNetwork, COLOR_PAIR(1));
+				box(_winNetwork, 0, 0);
 				wrefresh(_winNetwork);
+			}
 			else if ((*it)->getName().compare("CLOCK") == 0)
+			{
+				wbkgd(_winClock, COLOR_PAIR(1));
+				box(_winClock, 0, 0);
 				wrefresh(_winClock);
+			}
 		}	
 	}
 }
