@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:52:40 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/21 14:30:30 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:58:06 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ DataStruct::~DataStruct(void) {
 DataStruct &    DataStruct::operator=(DataStruct const & rhs) {
 	this->setDataType(rhs.getDataType());
 	this->setDisplayType(rhs.getDisplayType());
+	this->setVarLabel(rhs.getVarLabel());
 	if (this->_dataType == CHAR_PTR)
 	{
 		char	*str;
@@ -131,18 +132,12 @@ DataStruct &    DataStruct::operator=(DataStruct const & rhs) {
 	return (*this);
 }
 
-void		    *DataStruct::getDataAddr(void) const    {   return (this->_dataAddr);}
-E_VarType       DataStruct::getDataType(void) const     {   return (this->_dataType);}
-E_DisplayType   DataStruct::getDisplayType(void) const  {   return (this->_displayType);}
+void			*DataStruct::getDataAddr(void)		const				{ return (this->_dataAddr); }
+E_VarType		DataStruct::getDataType(void)		const				{ return (this->_dataType); }
+E_DisplayType	DataStruct::getDisplayType(void)	const				{ return (this->_displayType); }
+std::string		DataStruct::getVarLabel(void)		const				{ return (this->_varLabel); }
 
-void            DataStruct::setDataAddr(void * addr) {
-	this->_dataAddr = addr;
-}
-
-void            DataStruct::setDataType(E_VarType VarType) {
-	this->_dataType = VarType;
-}
-
-void            DataStruct::setDisplayType(E_DisplayType displayType) {
-	this->_displayType = displayType;
-}
+void            DataStruct::setDataAddr(void * addr)					{ this->_dataAddr = addr; }
+void            DataStruct::setDataType(E_VarType VarType)				{ this->_dataType = VarType; }
+void            DataStruct::setDisplayType(E_DisplayType displayType)	{ this->_displayType = displayType;}
+void			DataStruct::setVarLabel(std::string varLabel)			{ this->_varLabel = varLabel; }

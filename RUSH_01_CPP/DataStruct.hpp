@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:42:59 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:43:10 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:58:10 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,22 @@ class       DataStruct {
     void            *_dataAddr;
     E_VarType       _dataType;
     E_DisplayType   _displayType;
+    std::string     _varLabel;
     public:
     DataStruct(void);
     DataStruct(DataStruct const & src);
     ~DataStruct(void);
     DataStruct &    operator=(DataStruct const & rhs);
 
-    void            *getDataAddr(void) const;
-    E_VarType       getDataType(void) const;
-    E_DisplayType   getDisplayType(void) const;
+    void            *getDataAddr(void)      const;
+    E_VarType       getDataType(void)       const;
+    E_DisplayType   getDisplayType(void)    const;
+    std::string     getVarLabel(void)       const;
 
-    void            setDataAddr(void * addr);
+    void            setDataAddr(void *addr);
     void            setDataType(E_VarType VarType);
     void            setDisplayType(E_DisplayType displayType);
+    void            setVarLabel(std::string varLabel);
 };
 
 #endif

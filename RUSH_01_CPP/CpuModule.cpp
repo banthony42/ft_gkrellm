@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:41:47 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:54:04 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Cpu Frquency");
 		return (dataToReturn);
 	}
 	else if (n == 1)
@@ -194,6 +195,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(INT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Number of Cores");
 		return (dataToReturn);
 	}
 	else if (n == 2)
@@ -203,6 +205,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(INT);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Number of Active Cores");
 		return (dataToReturn);
 	}
 	else if (n == 3)
@@ -212,6 +215,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT32);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Cpu type");
 		return (dataToReturn);
 	}
 	else if (n == 4)
@@ -221,6 +225,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Used Cpu");
 		return (dataToReturn);
 	}
 	else if (n == 5)
@@ -230,6 +235,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Total Cpu");
 		return (dataToReturn);
 	}
 	else if (n == 6)
@@ -239,6 +245,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Cpu Available");
 		return (dataToReturn);
 	}
 	else if (n == 7)
@@ -248,6 +255,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("L3 Cache size");
 		return (dataToReturn);
 	}
 	else if (n == 8)
@@ -257,6 +265,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("L2 Cache size");
 		return (dataToReturn);
 	}
 	else if (n == 9)
@@ -266,6 +275,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("L1i Cache size");
 		return (dataToReturn);
 	}
 	else if (n == 10)
@@ -275,6 +285,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("L1d Cache size");
 		return (dataToReturn);
 	}
 	else if (n == 11)
@@ -286,6 +297,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(CHAR_PTR);
 		dataToReturn.setDisplayType(STRING);
+		dataToReturn.setVarLabel("Cpu Model");
 		return (dataToReturn);
 	}
 	else if (n == 12)
@@ -297,6 +309,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(CHAR_PTR);
 		dataToReturn.setDisplayType(STRING);
+		dataToReturn.setVarLabel("Cpu family");
 		return (dataToReturn);
 	}
 	else if (n == 13)
@@ -306,6 +319,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(TIMEVAL);
 		dataToReturn.setDisplayType(TIME_VAL);
+		dataToReturn.setVarLabel("Boot Time");
 		return (dataToReturn);
 	}
 	else if (n == 14)
@@ -315,6 +329,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Total system Cpu Usage");
 		return (dataToReturn);
 	}
 	else if (n == 15)
@@ -324,6 +339,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Total user Cpu Usage");
 		return (dataToReturn);
 	}
 	else if (n == 16)
@@ -333,6 +349,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Total iddle Cpu Usage");
 		return (dataToReturn);
 	}
 	else if (n == 17)
@@ -342,6 +359,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Maximum Core Clock");
 		return (dataToReturn);
 	}
 	else if (n == 18)
@@ -351,6 +369,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
+		dataToReturn.setVarLabel("Minimum Core Clock");
 		return (dataToReturn);
 	}
 	return (dataToReturn);
@@ -402,7 +421,7 @@ void		CpuModule::setTotalIdle(size_t totalIdle)			{ this->_totalIdle = totalIdle
 void		CpuModule::setMaxCoreClock(uint64_t maxCoreClock)	{ this->_maxCoreClock = maxCoreClock; }
 void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = minCoreClock; }
 
-/*int		main(void)
+int		main(void)
 {
 	CpuModule	io(true, 0, "aiou", 0, 0);
 	DataStruct	d0;
@@ -446,7 +465,7 @@ void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = 
 	d17 = io.getData(17);
 	d18 = io.getData(18);
 	return (0);
-}*/
+}
 /*
 	const void *tr = dataToReturn.getDataAddr();
 	uint64_t test2 = *(reinterpret_cast<uint64_t const *>(tr));
