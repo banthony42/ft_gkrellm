@@ -6,7 +6,7 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 14:55:23 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/21 11:59:10 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:09:31 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class ClockModule : public AModule {
     public:
     ClockModule(bool isActive, int ID, std::string name, int position, int len);
     virtual ~ClockModule(void);
-
+    
     virtual void                updateSysInfo(void);
     virtual DataStruct const    getData(unsigned int n) const;
 
