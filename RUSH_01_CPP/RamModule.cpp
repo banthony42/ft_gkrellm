@@ -6,7 +6,11 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:27:36 by banthony          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2018/01/21 14:33:26 by mgras            ###   ########.fr       */
+=======
+/*   Updated: 2018/01/21 14:30:43 by mgras            ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,26 +258,3 @@ vm_statistics64_data_t *RamModule::get_vmstat() const
 {
     return _vmstat;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

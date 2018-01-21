@@ -6,12 +6,15 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2018/01/21 14:37:13 by mgras            ###   ########.fr       */
+=======
+/*   Updated: 2018/01/21 14:30:17 by mgras            ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "CpuModule.hpp"
-#include <iostream>
 
 CpuModule::CpuModule(void) : AModule(),
 	_cpuFrequency(-1),
