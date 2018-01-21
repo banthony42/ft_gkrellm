@@ -101,41 +101,31 @@ DataStruct const RamModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 1) {
-        uint64_t *ptr = new uint64_t[sizeof(this->_usable_memory)];
-        *ptr = this->_usable_memory;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new uint64_t(this->_usable_memory));
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
     }
     else if (n == 2) {
-        uint64_t *ptr = new uint64_t[sizeof(this->_unused_memory)];
-        *ptr = this->_unused_memory;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new uint64_t(this->_unused_memory));
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
     }
     else if (n == 3) {
-        double *ptr = new double[sizeof(this->_used_memory)];
-        *ptr = this->_used_memory;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new double(this->_used_memory));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
     }
     else if (n == 4) {
-        double *ptr = new double[sizeof(this->_virtual_mem)];
-        *ptr = this->_virtual_mem;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new double(this->_virtual_mem));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
     }
     else if (n == 5) {
-        double *ptr = new double[sizeof(this->_app_mem)];
-        *ptr = this->_app_mem;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new double(this->_app_mem));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
@@ -149,25 +139,19 @@ DataStruct const RamModule::getData(unsigned int n) const
         return (dataToReturn);
     }
     else if (n == 7) {
-        double *ptr = new double[sizeof(this->_wired_memory)];
-        *ptr = this->_wired_memory;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new double(this->_wired_memory));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
     }
     else if (n == 8) {
-        double *ptr = new double[sizeof(this->_compress_mem)];
-        *ptr = this->_compress_mem;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new double(this->_compress_mem));
         dataToReturn.setDataType(DOUBLE);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
     }
     else if (n == 9) {
-        uint64_t *ptr = new uint64_t[sizeof(this->_memsize)];
-        *ptr = this->_memsize;
-        dataToReturn.setDataAddr(ptr);
+        dataToReturn.setDataAddr(new uint64_t(this->_memsize););
         dataToReturn.setDataType(UINT64);
         dataToReturn.setDisplayType(VALUE);
         return (dataToReturn);
