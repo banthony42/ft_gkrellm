@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AutoCast.template.hpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: banthony <banthony@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:53:34 by banthony          #+#    #+#             */
-/*   Updated: 2018/01/21 14:53:34 by banthony         ###   ########.fr       */
+/*   Updated: 2018/01/21 15:33:32 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ float autoCast(T val) {
 }
 
 template <typename T>
-std::string autoCast(T val) {
+std::string autoCast(T *val) {
 	std::string str;
 	str = val;
 	return (str);
