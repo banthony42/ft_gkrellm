@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:40:28 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/20 19:46:51 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 13:45:52 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <cstddef>
 
-enum    E_VarType {UNKNOWN_TYPE, CHAR, CHAR_PTR, UCHAR, INT, UINT, LONGINT, ULONGINT, DOUBLE, TIME_T, TM, UINT64, UINT32, SIZET, TIMEVAL, XSWUSAGE, VMSTAT64};
+enum    E_VarType {UNKNOWN_TYPE, CHAR_PTR, INT, LONGINT, DOUBLE, TIME_T, UINT64, UINT32, SIZET, TIMEVAL, XSWUSAGE, VMSTAT64};
 enum    E_DisplayType {UNKNOWN_DISPLAY, STRING, VALUE, GRAPH, TIME_VAL, XSW_USAGE, VM_STAT64};
 
 class       DataStruct {
