@@ -6,7 +6,7 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 11:26:26 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:02:27 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:12:12 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,12 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 		if (dataCpy.getDataAddr() == NULL)
 			break ;
 		switch (dataCpy.getDataType()) {
-			case CHAR:
-				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
-					case VALUE:
-
-					break;
-					case GRAPH:
-
-					break;
-				}//
-			break;
 			case CHAR_PTR:
 			switch (dataCpy.getDisplayType()) {
 					case STRING:
 
 					break;
 				}//
-			break;
-			case UCHAR:
-			switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
-					case VALUE:
-
-					break;
-					case GRAPH:
-
-					break;
-				}
 			break;
 			case INT:
 				switch (dataCpy.getDisplayType()) {
@@ -87,33 +61,7 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					case GRAPH:
 				}
 			break;
-			case UINT:
-				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
-					case VALUE:
-
-					break;
-					case GRAPH:
-
-					break;
-				}
-			break;
 			case LONGINT:
-				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
-					case VALUE:
-
-					break;
-					case GRAPH:
-
-					break;
-				}
-			break;
-			case ULONGINT:
 				switch (dataCpy.getDisplayType()) {
 					case STRING:
 
@@ -140,16 +88,6 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 				}
 			break;
 			case TIME_T:
-				switch (dataCpy.getDisplayType()) {
-					case STRING:
-
-					break;
-					case VALUE:
-
-					break;
-				}
-			break;
-			case TM:
 				switch (dataCpy.getDisplayType()) {
 					case STRING:
 
