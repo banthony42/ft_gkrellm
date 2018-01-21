@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AGraphical.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 11:26:26 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 11:52:30 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:02:27 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,197 @@ AGraphical::~AGraphical(void)
 {
 	return ;
 }
+
+void		AGraphical::generateModuleDisplay(AModule const &src) {
+	DataStruct 			dataCpy;
+	unsigned int		value = 0;
+	while (true) {
+		dataCpy = src.getData(value++);
+		if (dataCpy.getDataAddr() == NULL)
+			break ;
+		switch (dataCpy.getDataType()) {
+			case CHAR:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}//
+			break;
+			case CHAR_PTR:
+			switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+				}//
+			break;
+			case UCHAR:
+			switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case INT:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+				}
+			break;
+			case UINT:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case LONGINT:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case ULONGINT:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case DOUBLE:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case TIME_T:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+				}
+			break;
+			case TM:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+				}
+			break;
+			case UINT64:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case UINT32:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case SIZET:
+				switch (dataCpy.getDisplayType()) {
+					case STRING:
+
+					break;
+					case VALUE:
+
+					break;
+					case GRAPH:
+
+					break;
+				}
+			break;
+			case TIMEVAL:
+				switch (dataCpy.getDisplayType()) {
+					case TIME_VAL:
+
+					break;
+				}
+			break;
+			case XSWUSAGE:
+				switch (dataCpy.getDisplayType()) {
+					case XSW_USAGE:
+
+					break;
+				}
+			break;
+			case VMSTAT64:
+				switch (dataCpy.getDisplayType()) {
+					case VM_STAT64:
+
+					break;
+				}
+			break;
+			default:
+			//ADD THROW /!\ <-NONDISPLAYABLE
+		}
+	}
+}
+
 
 bool				AGraphical::getIsActive(void)	const						{ return (this->_isActive); }
 unsigned int		AGraphical::getX(void)			const						{ return (this->_x); }

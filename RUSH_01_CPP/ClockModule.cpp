@@ -6,7 +6,7 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:08:33 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/20 15:51:48 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/21 11:59:31 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void                        ClockModule::updateSysInfo(void) {
 //Pour ce casde figure le module ne retournera pas _timeS et _timevalcar Jessy a deja ces structures dans
 //le code d'affichage.
 
-DataStruct                  ClockModule::getData(unsigned int n) {
+DataStruct       const           ClockModule::getData(unsigned int n) const{
     DataStruct  dataToReturn;
     switch (n) {
         case 0:
