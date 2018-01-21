@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 14:43:30 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 16:57:20 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class ClockModule : public AModule {
     void                        setDate(char *date);
     void                        setTimeBuff(char *timebuff);
     void                        setTimeS(time_t timeS);
-    void                        setTimeval(struct tm timeval);    
+    void                        setTimeval(struct tm timeval);
 };
 
 #endif
