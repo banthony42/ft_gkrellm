@@ -6,7 +6,7 @@
 /*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:39 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/21 20:44:40 by jpiniau          ###   ########.fr       */
+/*   Updated: 2018/01/21 21:01:13 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,47 +184,23 @@ NCURSESGraphical const &	NCURSESGraphical::operator=(NCURSESGraphical const & rh
 
 void						NCURSESGraphical::updateVisual(void)
 {
-	// ******* test ****** //
-	/*
-	   static int		i = 0;
-	   static int		ii = 1;
-	   static clock_t	this_time = clock();
-	   static clock_t	last_time = this_time;
-	   static double	time_counter = 0;
-
-	   this_time = clock();
-	   time_counter += (double) (this_time - last_time);
-	   last_time = this_time;
-	   if (time_counter > (double)( (0.1) * CLOCKS_PER_SEC))
-	   {
-	   time_counter -= (double)( (0.1) * CLOCKS_PER_SEC);
-	   i += ii;
-	   if (i >= 99 || i <= 0)
-	   ii = -ii;
-
-	   updateGraph(_cpuGraph, i / 10);
-	   updateGraph(_ramGraph, i / 10);
-	   updateGraph(_networkGraph, i / 10);
-	   }
-	   */
-	// ********* FIN test ******//
-	//int				j = -1;
+	static clock_t	this_time = clock();
+	static clock_t	last_time = this_time;
+	static double	time_counter = 0;
 	int				ch = -1;
+
+	this_time = clock();
+	time_counter += (double) (this_time - last_time);
+	last_time = this_time;
+	if (time_counter > (double)( (0.1) * CLOCKS_PER_SEC))
+	{
+		time_counter -= (double)( (0.1) * CLOCKS_PER_SEC);
+		// ?? //
+	}
 
 	ch = wgetch(_winCPU);
 	if (ch == 27)
 		_quit = true;
-	/*
-	   while (++j < 10)
-	   {
-	   mvwprintw(_winCPU, 5 + j, 1, _cpuGraph[j].c_str());
-	   mvwprintw(_winOS, 5 + j, 1, _osGraph[j].c_str());
-	   mvwprintw(_winUser, 5 + j, 1, _userGraph[j].c_str());
-	   mvwprintw(_winRAM, 5 + j, 1, _ramGraph[j].c_str());
-	   mvwprintw(_winNetwork, 5 + j, 1, _networkGraph[j].c_str());	
-	   mvwprintw(_winClock, 5 + j, 1, _clockGraph[j].c_str());	
-	   }
-	   */
 }
 
 void						NCURSESGraphical::refreshVisual(void)
