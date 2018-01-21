@@ -52,7 +52,9 @@ DataStruct       const           ClockModule::getData(unsigned int n) const{
 	{
 		if (this->getDate() == NULL)
 			return (dataToReturn);
-		dataToReturn.setDataAddr(this->getDate());
+		char *ptr = new char[sizeof(char) * std::strlen(this->getDate())];
+		std::strcpy(ptr, this->getDate());
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(CHAR_PTR);
 		dataToReturn.setDisplayType(STRING);
 		dataToReturn.setVarLabel("Date");
