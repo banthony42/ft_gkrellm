@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 21:22:11 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 22:08:58 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void		CpuModule::updateSysInfo(void)
 		this->_totalCpu = this->_totalIdle + this->_totalSystem + this->_totalUser;
 		this->_cpuAvailable = (this->_totalSystem + this->_totalUser);
 		this->_cpuUsed = this->_totalCpu - this->_cpuAvailable;
-		if (oTcpu > 0 && this->_totalCpu > 0 && ocpuA > 0 && this->_cpuAvailable > 0)
+		if (oTcpu > 0 && this->_totalCpu > 0 && ocpuA > 0 && this->_cpuAvailable > 0 && (((this->_cpuAvailable - ocpuA) / (this->_totalCpu - oTcpu)) * 100) > 1)
 			this->_cpuUsage = ((this->_cpuAvailable - ocpuA) / (this->_totalCpu - oTcpu)) * 100;
 	}
 	else
@@ -189,11 +189,11 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	if (n == 0)
 	{
 		uint64_t *ptr = new uint64_t;
-		*ptr = this->_cpuFrequency;
+		*ptr = this->_cpuFrequency / (1000 * 1000);
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
-		dataToReturn.setVarLabel("Cpu Frquency");
+		dataToReturn.setVarLabel("Cpu Frquency Mhz");
 		return (dataToReturn);
 	}
 	else if (n == 1)
@@ -260,6 +260,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l3CacheSize;
+		*ptr /= 1000;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
@@ -270,6 +271,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l2CacheSize;
+		*ptr /= 1000;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
@@ -280,6 +282,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l1dCacheSize;
+		*ptr /= 1000;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
@@ -290,6 +293,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l1iCacheSize;
+		*ptr /= 1000;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
@@ -363,7 +367,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	else if (n == 17)
 	{
 		uint64_t *ptr = new uint64_t;
-		*ptr = this->_maxCoreClock;
+		*ptr = this->_maxCoreClock / (1000 * 1000);
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
@@ -373,7 +377,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	else if (n == 18)
 	{
 		uint64_t *ptr = new uint64_t;
-		*ptr = this->_minCoreClock;
+		*ptr = this->_minCoreClock / (1000 * 1000);
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
