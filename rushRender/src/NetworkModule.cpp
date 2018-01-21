@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:37:20 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 19:30:55 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 21:08:13 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,13 @@ void				NetworkModule::updateSysInfo(void)
 	if (this->_packetInNew != -1)
 		this->_packetInOld = this->_packetInNew;
 	if (this->_packetOutNew != -1)
-		this->_bytesOutOld = this->_packetOutNew;
+		this->_bytesOutOld = this->_bytesOutNew;
 	if (this->_bytesInNew != -1)
 		this->_bytesInOld = this->_bytesInNew;
+	this->_packetOutNew = 0;
+	this->_packetInNew = 0;
+	this->_bytesOutNew = 0;
+	this->_bytesInNew = 0;
 	for (next = buf; next < lim;) {
 		ifm = (struct if_msghdr *)next;
 		next += ifm->ifm_msglen;
@@ -122,7 +126,7 @@ void				NetworkModule::updateSysInfo(void)
 		this->_packetInDiff = -1;
 
 	if (this->_bytesOutNew != -1 && this->_bytesOutOld != -1)
-		this->_bytesOutDiff = this->_packetOutNew - this->_packetOutOld;
+		this->_bytesOutDiff = this->_bytesOutNew - this->_bytesOutOld;
 	else
 		this->_packetOutDiff = -1;
 
@@ -146,7 +150,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(GRAPH);
-		dataToReturn.setVarLabel("Variation of inbound bytes since last update");
+		dataToReturn.setVarLabel("Variation of inbound Mbytes since last update");
 		return (dataToReturn);
 	}
 	else if (n == 1)
@@ -156,7 +160,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(GRAPH);
-		dataToReturn.setVarLabel("Variation of outbound bytes since last update");
+		dataToReturn.setVarLabel("Variation of outbound Mbytes since last update");
 		return (dataToReturn);	
 	}
 	else if (n == 2)
@@ -182,49 +186,49 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 	else if (n == 4)
 	{
 		double *ptr = new double;
-		*ptr = this->_bytesInNew;
+		*ptr = this->_bytesInNew / (1024 * 1024);
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
-		dataToReturn.setVarLabel("Inbound Bytes");
+		dataToReturn.setVarLabel("Inbound Mbytes");
 		return (dataToReturn);
 	}
 	else if (n == 5)
 	{
 		double *ptr = new double;
-		*ptr = this->_bytesOutNew;
+		*ptr = this->_bytesOutNew / (1024 * 1024);
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(DOUBLE);
 		dataToReturn.setDisplayType(VALUE);
-		dataToReturn.setVarLabel("Outbound Bytes");
+		dataToReturn.setVarLabel("Outbound Mbytes");
 		return (dataToReturn);	
 	}
 	else if (n == 6)
 	{
 		long int *ptr = new long int;
-		*ptr = this->_packetInNew;
+		*ptr = this->_packetInNew / 1000;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
-		dataToReturn.setVarLabel("Inbound Packets");
+		dataToReturn.setVarLabel("Inbound Packets * 1000");
 		return (dataToReturn);
 	}
 	else if (n == 7)
 	{
 		long int *ptr = new long int;
-		*ptr = this->_packetOutNew;
+		*ptr = this->_packetOutNew / 1000;
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(LONGINT);
 		dataToReturn.setDisplayType(VALUE);
-		dataToReturn.setVarLabel("Outbound Packets");
+		dataToReturn.setVarLabel("Outbound Packets * 1000");
 		return (dataToReturn);
 	}
 	else if (n == 8)
 	{
 		double *ptr = new double;
-		*ptr = this->_bytesInOld;
+		*ptr = this->_bytesInOld / (1024 * 1024);
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(DOUBLE);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Inbound Bytes (Previous update)");
 		return (dataToReturn);
@@ -232,9 +236,9 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 	else if (n == 9)
 	{
 		double *ptr = new double;
-		*ptr = this->_bytesOutOld;
+		*ptr = this->_bytesOutOld / (1024 * 1024);
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(DOUBLE);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Outbound Bytes (Previous update)");
 		return (dataToReturn);	
@@ -244,7 +248,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		long int *ptr = new long int;
 		*ptr = this->_packetInOld;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(LONGINT);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Inbound Packets (Previous update)");
 		return (dataToReturn);
@@ -254,7 +258,7 @@ DataStruct const		NetworkModule::getData(unsigned int n) const
 		long int *ptr = new long int;
 		*ptr = this->_packetOutOld;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(LONGINT);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Outbound Packets (Previous update)");
 		return (dataToReturn);
