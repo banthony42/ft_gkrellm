@@ -36,14 +36,12 @@ Renderer::Renderer() :
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
-	_modCount = 0;
 	for (std::list<AModule*>::const_iterator iterator = get_moduleList().begin();
 		iterator != get_moduleList().end(); ++iterator)
 	{
 		AModule* mod = *iterator;
 		if (!mod->getIsActive())
 			break;
-		_moduleTotalHeight += mod->getLen();
 		// _modCount++;
 		// _modData.push_back(new TextureData());
 		// int pos = mod->getPosition() - 1;
@@ -69,25 +67,27 @@ void Renderer::updateVisual()
 		AModule* mod = *iterator;
 		if (!mod->getIsActive())
 			break;
-		std::cout << "mod " << mod->getName() << std::endl;
-		std::cout << "pos " << mod->getPosition() << std::endl;
 		mod->updateSysInfo();
 		generateModuleDisplay(*mod);
 	}
-	std::cout << std::endl;
 }
 
 void Renderer::refreshVisual()
 {
 	unsigned int modCount = _modData.size();
-	std::cout << "modCount : " << modCount << std::endl;
+	float tth = 0;
 	if (modCount)
 	{
-		unsigned int h = _win.getHeight() / modCount;
-		_textRD.update_font_data(_win.getWidth(), h);
-		glViewport(0, h, _win.getWidth(), h);
-		for (size_t i = 0; i < modCount; i++) {
-			glViewport(0, h * (modCount - i - 1), _win.getWidth(), h);
+		for (size_t i = 0; i < modCount; i++)
+		{
+			float hf = static_cast<float>(_win.getHeight()) *
+				static_cast<float>(_modData[i]->getHeight()) /
+				static_cast<float>(_moduleTotalHeight);
+			unsigned int h = static_cast<unsigned int>(hf);
+			// unsigned int h = _win.getHeight() / _modData.size();
+			// std::cout << "h : " << _modData[i]->getHeight() << " : " << h << std::endl;
+			_textRD.update_font_data(_win.getWidth(), h);
+			glViewport(0, _win.getHeight() - h - tth, _win.getWidth(), h);
 			_courbe.bind();
 			glBindVertexArray(_vao);
 			glActiveTexture(GL_TEXTURE0);
@@ -98,6 +98,7 @@ void Renderer::refreshVisual()
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 			glBindVertexArray(0);
 			_textRD.render_text(_modData[i]->getText(), -1, -1);
+			tth += hf;
 		}
 	}
 	_win.render();
@@ -115,14 +116,13 @@ void Renderer::generateCurveDisplay(float lastPoint, std::string label, AModule 
 			str << label << " : " << lastPoint;
 			_modData[i]->setText(str.str());
 			_modData[i]->addValue(lastPoint);
-			_modData[i]->setHeight(40);
-			_moduleTotalHeight += 40;
 			return;
 		}
 	}
 	TextureData *data = new TextureData();
 	data->setName(cd);
-	_modCount++;
+	data->setHeight(50);
+	_moduleTotalHeight += 50;
 	_modData.push_back(data);
 }
 
@@ -137,14 +137,13 @@ void Renderer::generateValDisplay(float val, std::string label, AModule const &m
 			std::ostringstream str;
 			str << label << " : " << val;
 			_modData[i]->setText(str.str());
-			_modData[i]->setHeight(10);
-			_moduleTotalHeight += 10;
 			return;
 		}
 	}
 	TextureData *data = new TextureData();
 	data->setName(cd);
-	_modCount++;
+	data->setHeight(10);
+	_moduleTotalHeight += 10;
 	_modData.push_back(data);
 
 
@@ -163,14 +162,13 @@ void Renderer::generateStringDisplay(std::string val, std::string label, AModule
 			std::ostringstream str;
 			str << label << " : " << val;
 			_modData[i]->setText(str.str());
-			_modData[i]->setHeight(10);
-			_moduleTotalHeight += 10;
 			return;
 		}
 	}
 	TextureData *data = new TextureData();
 	data->setName(cd);
-	_modCount++;
+	data->setHeight(10);
+	_moduleTotalHeight += 10;
 	_modData.push_back(data);
 }
 
@@ -205,7 +203,7 @@ Renderer::TextureData::TextureData() :
 	_dataMin(0), _dataMax(0)
 {
 	glGenTextures(1, &_tex_id);
-	for (int i = 0; i < 256; i++)
+	for (int i = 0; i < 512; i++)
 	{
 		_data[i] = 0;
 	}
@@ -220,7 +218,7 @@ void Renderer::TextureData::updateGl()
 	glTexImage1D(GL_TEXTURE_1D,
 		0,
 		GL_RED,
-		256,
+		512,
 		0,
 		GL_RED,
 		GL_FLOAT,
@@ -229,9 +227,9 @@ void Renderer::TextureData::updateGl()
 
 void Renderer::TextureData::addValue(const float val)
 {
-	_dataMin = 0;
-	_dataMax = 0;
-	for (int i = 1; i < 256; i++)
+	_dataMin = _data[0];
+	_dataMax = _data[0];
+	for (int i = 1; i < 512; i++)
 	{
 		if (_data[i] > _dataMax)
 			_dataMax = _data[i];
@@ -239,7 +237,7 @@ void Renderer::TextureData::addValue(const float val)
 			_dataMin = _data[i];
 		_data[i - 1] = _data[i];
 	}
-	_data[255] = val;
+	_data[512 - 1] = val;
 	updateGl();
 }
 
@@ -287,7 +285,7 @@ void Renderer::TextureData::setName(const std::string name)
 
 float Renderer::TextureData::operator[](unsigned int v) const
 {
-	if (v >= 256)
+	if (v >= 512)
 		return (0);
 	return (_data[v]);
 }

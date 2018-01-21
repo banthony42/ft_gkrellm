@@ -46,7 +46,7 @@ private:
 		TextureData(TextureData const &copy);
 		TextureData	&operator=(TextureData const &rhs);
 		GLuint _tex_id;
-		float _data[256];
+		float _data[512];
 		float _dataMin;
 		float _dataMax;
 		std::string _text;
@@ -64,7 +64,6 @@ private:
 	GLint _uni_tex;
 	static const GLfloat _vertPlane[12];
 
-	unsigned int _modCount;
 	std::vector<TextureData*>  _modData;
 	unsigned int _moduleTotalHeight;
 };

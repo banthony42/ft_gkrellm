@@ -14,7 +14,7 @@ DEPS = $(addprefix dep/, $(SRC:.cpp=.d))
 CPPFLAGS = -Wall -Wextra -Werror -I include \
 	`pkg-config --cflags glfw3` \
 	`pkg-config --cflags glew` \
-	-std=c++98
+	-std=c++98 -g
 
 LDFLAGS= `pkg-config --static --libs glfw3` \
 	`pkg-config --static --libs glew` \

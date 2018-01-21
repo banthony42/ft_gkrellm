@@ -36,7 +36,7 @@ Window::Window(unsigned int width, unsigned int height)
 	}
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_DECORATED, false);
@@ -67,7 +67,11 @@ Window::Window(unsigned int width, unsigned int height)
 		glfwTerminate();
 		std::exception();//"La fenetre n'a pas pu etre creer."
 	}
-	// glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glfwSwapInterval(1);
 	// glEnable(GL_CULL_FACE);
 	// glCullFace(GL_FRONT);
 }
@@ -110,7 +114,7 @@ void Window::render(void)
 	// glViewport(0, 0, _width, _height);
 	glfwSwapBuffers(_win);
 	glClearColor(0.6, 0.6, 0.6, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::close(void)
