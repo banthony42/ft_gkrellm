@@ -14,11 +14,6 @@ const GLfloat Renderer::_vertPlane[12] =
 	1.0f, -1.0f,
 };
 
-#include "OsModule.hpp"
-#include "CpuModule.hpp"
-#include "UserModule.hpp"
-#include "RamModule.hpp"
-
 Renderer::Renderer() :
 	_win(),
 	_courbe(Shader("graph_v.glsl"), Shader("graph_f.glsl")),
@@ -50,13 +45,12 @@ Renderer::Renderer() :
 			break;
 		_moduleTotalHeight += mod->getLen();
 		_modCount++;
+		_modData.push_back(new TextureData());
 		int pos = mod->getPosition() - 1;
 
-		_modData[pos].setText(mod->getName());
-		_modData[pos].setHeight(mod->getLen());
+		_modData[pos]->setText(mod->getName());
+		_modData[pos]->setHeight(mod->getLen());
 	}
-	if (_modCount == 0)
-		close();
 	// _modCount = 10;
 }
 
@@ -75,36 +69,12 @@ void Renderer::updateVisual()
 		AModule* mod = *iterator;
 		if (!mod->getIsActive())
 			break;
+		std::cout << "mod " << mod->getName() << std::endl;
+		std::cout << "pos " << mod->getPosition() << std::endl;
 		mod->updateSysInfo();
-		std::cout << "sdfgs\n";
-		// generateModuleDisplay(*mod);
+		generateModuleDisplay(*mod);
 	}
-
-
-
-	/*static int i = 0;
-	i++;
-	// std::ostringstream str;
-	// str << "data : " << i;
-	// _modData[0].setText(str.str());
-
-	if (_modData[0][0])
-	{
-		_modData[0].addValue((_modData[0][0] + _modData[0][1] + _modData[0][2] +
-			_modData[0][5] + _modData[0][10]) * 0.2);
-	}
-	else
-		_modData[0].addValue((rand() % 10000) * 0.01 - 50);
-	if (!(i % 2))
-		_modData[1].addValue((_modData[0][255] + _modData[0][254]) * 0.5);
-	if (!(i % 4))
-		_modData[2].addValue((_modData[1][255] + _modData[1][254]) * 0.5);
-	if (!(i % 8))
-		_modData[3].addValue((_modData[2][255] + _modData[2][254]) * 0.5);
-	if (!(i % 16))
-		_modData[4].addValue((_modData[3][255] + _modData[3][254]) * 0.5);*/
-	// for (size_t i = 0; i < 3; i++)
-		// _modData[i].addValue(rand() % 10000);
+	std::cout << std::endl;
 }
 
 void Renderer::refreshVisual()
@@ -117,22 +87,22 @@ void Renderer::refreshVisual()
 		_courbe.bind();
 		glBindVertexArray(_vao);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_1D, _modData[i].getTexId());
-		glUniform1f(_uni_min, _modData[i].getMin());
-		glUniform1f(_uni_max, _modData[i].getMax());
+		glBindTexture(GL_TEXTURE_1D, _modData[i]->getTexId());
+		glUniform1f(_uni_min, _modData[i]->getMin());
+		glUniform1f(_uni_max, _modData[i]->getMax());
 		glUniform1i(_uni_tex, 0);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
-		_textRD.render_text(_modData[i].getText(), -1, -1);
+		_textRD.render_text(_modData[i]->getText(), -1, -1);
 	}
 	_win.render();
 }
 
 void Renderer::generateCurveDisplay(float lastPoint, std::string label, AModule const &mod)
 {
-	std::cout << "test : " << lastPoint << std::endl;
+	std::cout << "generateCurveDisplay : " << lastPoint << std::endl;
 	int pos = mod.getPosition() - 1;
-	_modData[pos].addValue(lastPoint);
+	_modData[pos]->addValue(lastPoint);
 	(void)lastPoint;
 	(void)label;
 	(void)mod;
@@ -140,6 +110,9 @@ void Renderer::generateCurveDisplay(float lastPoint, std::string label, AModule 
 
 void Renderer::generateValDisplay(float val, std::string label, AModule const &mod)
 {
+	std::cout << "generateValDisplay : (" << label << ")" << val << std::endl;
+	int pos = mod.getPosition() - 1;
+	_modData[pos]->addValue(val);
 	(void)val;
 	(void)label;
 	(void)mod;
@@ -147,6 +120,7 @@ void Renderer::generateValDisplay(float val, std::string label, AModule const &m
 
 void Renderer::generateStringDisplay(std::string str, std::string label, AModule const &mod)
 {
+	std::cout << "generateStringDisplay : " << str << std::endl;
 	(void)str;
 	(void)label;
 	(void)mod;
@@ -253,6 +227,14 @@ void Renderer::TextureData::setHeight(const unsigned int height)
 float Renderer::TextureData::getMax(void) const
 {
 	return (_dataMax);
+}
+std::string Renderer::TextureData::getName(void) const
+{
+	return (_name);
+}
+void Renderer::TextureData::setName(const std::string name)
+{
+	_name = name;
 }
 
 float Renderer::TextureData::operator[](unsigned int v) const

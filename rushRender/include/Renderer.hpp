@@ -2,6 +2,7 @@
 # define RENDERER_HPP
 
 # include <string>
+# include <vector>
 # include "ProgramGlsl.hpp"
 # include "TextRenderer.hpp"
 # include "Window.hpp"
@@ -38,6 +39,8 @@ private:
 		float getMax(void) const;
 		unsigned int getHeight(void) const;
 		void setHeight(const unsigned int height);
+		std::string getName(void) const;
+		void setName(const std::string name);
 		float operator[](unsigned int v) const;
 	private:
 		TextureData(TextureData const &copy);
@@ -47,6 +50,7 @@ private:
 		float _dataMin;
 		float _dataMax;
 		std::string _text;
+		std::string _name;
 		unsigned int _moduleHeight;
 	};
 
@@ -61,7 +65,7 @@ private:
 	static const GLfloat _vertPlane[12];
 
 	unsigned int _modCount;
-	TextureData  _modData[10];
+	std::vector<TextureData*>  _modData;
 	unsigned int _moduleTotalHeight;
 };
 
