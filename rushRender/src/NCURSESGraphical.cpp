@@ -6,7 +6,7 @@
 /*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:39 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/21 21:43:06 by jpiniau          ###   ########.fr       */
+/*   Updated: 2018/01/21 21:48:01 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,8 @@ void						NCURSESGraphical::generateStringDisplay(std::string str, std::string l
 	static int		y[6] = {2};
 	int				i = -1;
 
-	static_cast<void>(label);
+	str.insert(0, " : ");
+	str.insert(0, label);
 	if (mod.getName().compare("CPU") == 0)
 	{
 		mvwprintw(_winCPU, y[0]++, 1, str.c_str());
