@@ -34,7 +34,7 @@ class ClockModule : public AModule {
     virtual ~ClockModule(void);
 
     virtual void        updateSysInfo(void);
-    virtual DataStruct  getData(unsigned int n);
+    virtual DataStruct  const getData(unsigned int n) const;
 
     char                *getDate(void) const;
     char                *getTimeBuff(void) const;

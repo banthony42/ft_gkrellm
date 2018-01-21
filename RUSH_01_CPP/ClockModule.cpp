@@ -45,7 +45,7 @@ void                        ClockModule::updateSysInfo(void) {
 //Pour ce casde figure le module ne retournera pas _timeS et _timevalcar Jessy a deja ces structures dans
 //le code d'affichage.
 
-DataStruct                  ClockModule::getData(unsigned int n) {
+DataStruct                  const ClockModule::getData(unsigned int n) const {
     DataStruct  dataToReturn;
     switch (n) {
         case 0:
