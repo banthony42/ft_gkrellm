@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   NCURSESGraphical.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiniau <jpiniau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:39 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/21 18:02:13 by jrouthie         ###   ########.fr       */
+/*   Updated: 2018/01/21 20:44:40 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "NCURSESGraphical.hpp"
 
-NCURSESGraphical::NCURSESGraphical(void)// : AGraphical()
+NCURSESGraphical::NCURSESGraphical(void) : AGraphical()
 {
+	std::list<AModule*>::iterator it;
+
 	initscr();
 	noecho();
 	curs_set(0);
@@ -22,50 +24,150 @@ NCURSESGraphical::NCURSESGraphical(void)// : AGraphical()
 	init_color(COLOR_RED, 100, 200, 400);
 	init_pair(1, COLOR_CYAN, COLOR_RED);
 
-	_winCPU = newwin(20, 102, 0, 0);
-	_winOS = newwin(20, 102, 0, 102);
-	_winUser = newwin(20, 102, 20, 0);
-	_winRAM = newwin(20, 102, 20, 102);
-	_winNetwork = newwin(20, 102, 40, 0);
-	_winClock = newwin(20, 102, 40, 102);
+	_x = 0;
+	_y = 0;
 
-	nodelay(_winCPU, TRUE);
-	nodelay(_winOS, TRUE);
-	nodelay(_winUser, TRUE);
-	nodelay(_winRAM, TRUE);
-	nodelay(_winNetwork, TRUE);
-	nodelay(_winClock, TRUE);
-
-	wbkgd(_winCPU, COLOR_PAIR(1));
-	wbkgd(_winOS, COLOR_PAIR(1));
-	wbkgd(_winUser, COLOR_PAIR(1));
-	wbkgd(_winRAM, COLOR_PAIR(1));
-	wbkgd(_winNetwork, COLOR_PAIR(1));
-	wbkgd(_winClock, COLOR_PAIR(1));
-
-	box(_winCPU, 0, 0);
-	box(_winOS, 0, 0);
-	box(_winUser, 0, 0);
-	box(_winRAM, 0, 0);
-	box(_winNetwork, 0, 0);
-	box(_winClock, 0, 0);
-
-	_cpuGraph = initGraph();
-	_ramGraph = initGraph();
-	_networkGraph = initGraph();
+	for(it = this->get_moduleList().begin(); it != this->get_moduleList().end(); ++it)
+	{
+		if ((*it)->getIsActive() == true)
+		{
+			if ((*it)->getName() == "cpu")
+			{
+				{
+					_winCPU = newwin(20, 102, _y, _x);
+					nodelay(_winCPU, TRUE);
+					wbkgd(_winCPU, COLOR_PAIR(1));
+					box(_winCPU, 0, 0);
+					//_cpuGraph = initGraph();
+					mvwprintw(_winCPU, 1, 49, "CPU");
+					if (_x == 102)
+					{
+						_x = 0;
+						_y += 20;
+					}
+					else
+					{
+						_x = 102; 
+					}
+				}
+			}
+			else if ((*it)->getName() == "OS")
+			{	
+				_winOS = newwin(20, 102, _y, _x);
+				nodelay(_winOS, TRUE);
+				wbkgd(_winOS, COLOR_PAIR(1));
+				box(_winOS, 0, 0);
+				//_osGraph = initGraph();
+				mvwprintw(_winOS, 1, 49, "OS");
+				if (_x == 102)
+				{
+					_x = 0;
+					_y += 20;
+				}
+				else
+				{
+					_x = 102; 
+				}
+			}
+			else if ((*it)->getName().compare("USER") == 0)
+			{	
+				_winUser = newwin(20, 102, _y, _x);
+				nodelay(_winUser, TRUE);
+				wbkgd(_winUser, COLOR_PAIR(1));
+				box(_winUser, 0, 0);
+				//_userGraph = initGraph();
+				mvwprintw(_winUser, 1, 49, "USER");
+				if (_x == 102)
+				{
+					_x = 0;
+					_y += 20;
+				}
+				else
+				{
+					_x = 102; 
+				}
+			}
+			else if ((*it)->getName().compare("RAM") == 0)
+			{	
+				_winRAM = newwin(20, 102, _y, _x);
+				nodelay(_winRAM, TRUE);
+				wbkgd(_winRAM, COLOR_PAIR(1));
+				box(_winRAM, 0, 0);
+				//_ramGraph = initGraph();
+				mvwprintw(_winRAM, 1, 49, "RAM");
+				if (_x == 102)
+				{
+					_x = 0;
+					_y += 20;
+				}
+				else
+				{
+					_x = 102; 
+				}
+			}
+			else if ((*it)->getName().compare("NET") == 0)
+			{	
+				_winNetwork = newwin(20, 102, _y, _x);
+				nodelay(_winNetwork, TRUE);
+				wbkgd(_winNetwork, COLOR_PAIR(1));
+				box(_winNetwork, 0, 0);
+				//_networkGraph = initGraph();
+				mvwprintw(_winNetwork, 1, 49, "NETWORK");
+				if (_x == 102)
+				{
+					_x = 0;
+					_y += 20;
+				}
+				else
+				{
+					_x = 102; 
+				}
+			}
+			else if ((*it)->getName().compare("CLOCK") == 0)
+			{	
+				_winClock = newwin(20, 102, _y, _x);
+				nodelay(_winClock, TRUE);
+				wbkgd(_winClock, COLOR_PAIR(1));
+				box(_winClock, 0, 0);
+				//_cpuGraph = initGraph();
+				mvwprintw(_winClock, 1, 49, "CLOCK");
+				if (_x == 102)
+				{
+					_x = 0;
+					_y += 20;
+				}
+				else
+				{
+					_x = 102; 
+				}
+			}
+		}
+	}	
 
 	refresh();
-	wrefresh(_winCPU);
-	wrefresh(_winOS);
-	wrefresh(_winUser);
-	wrefresh(_winRAM);
-	wrefresh(_winNetwork);
-	wrefresh(_winClock);_networkGraph = initGraph();
+	for (it = this->get_moduleList().begin();it != this->get_moduleList().end();++it)
+	{
+		if ((*it)->getIsActive() == true)
+		{
+			if ((*it)->getName().compare("CPU") == 0)
+				wrefresh(_winCPU);
+			else if ((*it)->getName().compare("OS") == 0)
+				wrefresh(_winOS);
+			else if ((*it)->getName().compare("USER") == 0)
+				wrefresh(_winUser);
+			else if ((*it)->getName().compare("RAM") == 0)
+				wrefresh(_winRAM);
+			else if ((*it)->getName().compare("NET") == 0)
+				wrefresh(_winNetwork);
+			else if ((*it)->getName().compare("CLOCK") == 0)
+				wrefresh(_winClock);
+		}	
+	}
 
 	_quit = 0;
 }
 
-NCURSESGraphical::NCURSESGraphical(NCURSESGraphical const & src)// : AGraphical(src)
+NCURSESGraphical::NCURSESGraphical(NCURSESGraphical const & src)  : AGraphical(src)
 {
 	*this = src;
 }
@@ -84,106 +186,155 @@ void						NCURSESGraphical::updateVisual(void)
 {
 	// ******* test ****** //
 	/*
-	static int		i = 0;
-	static int		ii = 1;
-	static clock_t	this_time = clock();
-	static clock_t	last_time = this_time;
-	static double	time_counter = 0;
+	   static int		i = 0;
+	   static int		ii = 1;
+	   static clock_t	this_time = clock();
+	   static clock_t	last_time = this_time;
+	   static double	time_counter = 0;
 
-	this_time = clock();
-	time_counter += (double) (this_time - last_time);
-	last_time = this_time;
-	if (time_counter > (double)( (0.1) * CLOCKS_PER_SEC))
-	{
-		time_counter -= (double)( (0.1) * CLOCKS_PER_SEC);
-		i += ii;
-		if (i >= 99 || i <= 0)
-			ii = -ii;
+	   this_time = clock();
+	   time_counter += (double) (this_time - last_time);
+	   last_time = this_time;
+	   if (time_counter > (double)( (0.1) * CLOCKS_PER_SEC))
+	   {
+	   time_counter -= (double)( (0.1) * CLOCKS_PER_SEC);
+	   i += ii;
+	   if (i >= 99 || i <= 0)
+	   ii = -ii;
 
-		updateGraph(_cpuGraph, i / 10);
-		updateGraph(_ramGraph, i / 10);
-		updateGraph(_networkGraph, i / 10);
-	}
-	*/
+	   updateGraph(_cpuGraph, i / 10);
+	   updateGraph(_ramGraph, i / 10);
+	   updateGraph(_networkGraph, i / 10);
+	   }
+	   */
 	// ********* FIN test ******//
-	int				j = -1;
+	//int				j = -1;
 	int				ch = -1;
 
 	ch = wgetch(_winCPU);
 	if (ch == 27)
 		_quit = true;
-
-	while (++j < 10)
-		mvwprintw(_winCPU, 5 + j, 1, _cpuGraph[j].c_str());
-	j = -1;
-	while (++j < 10)
-		mvwprintw(_winRAM, 5 + j, 1, _ramGraph[j].c_str());
-	j = -1;
-	while (++j < 10)
-		mvwprintw(_winNetwork, 5 + j, 1, _networkGraph[j].c_str());
-	j = -1;
-
+	/*
+	   while (++j < 10)
+	   {
+	   mvwprintw(_winCPU, 5 + j, 1, _cpuGraph[j].c_str());
+	   mvwprintw(_winOS, 5 + j, 1, _osGraph[j].c_str());
+	   mvwprintw(_winUser, 5 + j, 1, _userGraph[j].c_str());
+	   mvwprintw(_winRAM, 5 + j, 1, _ramGraph[j].c_str());
+	   mvwprintw(_winNetwork, 5 + j, 1, _networkGraph[j].c_str());	
+	   mvwprintw(_winClock, 5 + j, 1, _clockGraph[j].c_str());	
+	   }
+	   */
 }
 
 void						NCURSESGraphical::refreshVisual(void)
 {
+	std::list<AModule*>::iterator it;
 	refresh();
-	wrefresh(_winCPU);
-	wrefresh(_winOS);
-	wrefresh(_winUser);
-	wrefresh(_winRAM);
-	wrefresh(_winNetwork);
-	wrefresh(_winClock);
+	for (it = this->get_moduleList().begin();it != this->get_moduleList().end();++it)
+	{
+		if ((*it)->getIsActive() == true)
+		{
+			if ((*it)->getName().compare("CPU") == 0)
+				wrefresh(_winCPU);
+			else if ((*it)->getName().compare("OS") == 0)
+				wrefresh(_winOS);
+			else if ((*it)->getName().compare("USER") == 0)
+				wrefresh(_winUser);
+			else if ((*it)->getName().compare("RAM") == 0)
+				wrefresh(_winRAM);
+			else if ((*it)->getName().compare("NET") == 0)
+				wrefresh(_winNetwork);
+			else if ((*it)->getName().compare("CLOCK") == 0)
+				wrefresh(_winClock);
+		}	
+	}
 }
 
-void						NCURSESGraphical::generateCurveDisplay(float lastPoint, std::string label)
+void						NCURSESGraphical::generateCurveDisplay(float lastPoint, std::string label, AModule const &mod)
 {
+	/*
 	// definir les label //
 	if (label.compare("cpu") == 0)
-		updateGraph(_cpuGraph, static_cast<int>(lastPoint / 10));
+	updateGraph(_cpuGraph, static_cast<int>(lastPoint / 10));
+	else if (label.compare("os") == 0)
+	updateGraph(_osGraph, static_cast<int>(lastPoint / 10));
+	else if (label.compare("user") == 0)
+	updateGraph(_userGraph, static_cast<int>(lastPoint / 10));
 	else if (label.compare("ram") == 0)
-		updateGraph(_ramGraph, static_cast<int>(lastPoint / 10));
+	updateGraph(_ramGraph, static_cast<int>(lastPoint / 10));
 	else if (label.compare("network") == 0)
-		updateGraph(_networkGraph, static_cast<int>(lastPoint / 10));
+	updateGraph(_networkGraph, static_cast<int>(lastPoint / 10));
+	else if (label.compare("clock") == 0)
+	updateGraph(_clockGraph, static_cast<int>(lastPoint / 10));
+
+	if (label.compare("cpu") == 0)
+	else if (label.compare("ram") == 0)
+	updateGraph(_ramGraph, static_cast<int>(lastPoint / 10));
+	else if (label.compare("network") == 0)
+	updateGraph(_networkGraph, static_cast<int>(lastPoint / 10));
+	*/
+	static_cast<void>(lastPoint);
+	static_cast<void>(label);
+	static_cast<void>(mod);
 }
 
-void						NCURSESGraphical::generateValDisplay(float val, std::string label)
+void						NCURSESGraphical::generateValDisplay(float val, std::string label, AModule const &mod)
 {
-	// definir les label //
 	std::ostringstream os;
-	std::string str;
 
 	os << val;
-	str = os.str();
-	if (label.compare("cpu") == 0)
-		mvwprintw(_winCPU, 18, 1, str.c_str());
-	else if (label.compare("os") == 0)
-		mvwprintw(_winOS, 18, 1, str.c_str());
-	else if (label.compare("user") == 0)
-		mvwprintw(_winUser, 18, 1, str.c_str());
-	else if (label.compare("ram") == 0)
-		mvwprintw(_winRAM, 18, 1, str.c_str());
-	else if (label.compare("network") == 0)
-		mvwprintw(_winNetwork, 18, 1, str.c_str());
-	else if (label.compare("clock") == 0)
-		mvwprintw(_winClock, 18, 1, str.c_str());
+	generateStringDisplay(os.str(), label, mod);
 }
 
-void						NCURSESGraphical::generateStringDisplay(std::string str, std::string label)
+void						NCURSESGraphical::generateStringDisplay(std::string str, std::string label, AModule const &mod)
 {
-	// definir les label //
-	if (label.compare("cpu") == 0)
-		mvwprintw(_winCPU, 16, 1, str.c_str());
-	else if (label.compare("os") == 0)
-		mvwprintw(_winOS, 16, 1, str.c_str());
-	else if (label.compare("user") == 0)
-		mvwprintw(_winUser, 16, 1, str.c_str());
-	else if (label.compare("ram") == 0)
-		mvwprintw(_winRAM, 16, 1, str.c_str());
-	else if (label.compare("network") == 0)
-		mvwprintw(_winNetwork, 16, 1, str.c_str());
-	else if (label.compare("clock") == 0)
-		mvwprintw(_winClock, 16, 1, str.c_str());
+	static int		y[6] = {1};
+	int				i = -1;
+
+	static_cast<void>(label);
+	if (mod.getName().compare("CPU") == 0)
+	{
+		mvwprintw(_winCPU, y[0]++, 1, str.c_str());
+		while (++i < 6)
+			if (i != 0)
+				y[i] = 1;
+	}
+	if (mod.getName().compare("OS") == 0)
+	{
+		mvwprintw(_winOS, y[1]++, 1, str.c_str());
+		while (++i < 6)
+			if (i != 1)
+				y[i] = 1;
+	}
+	if (mod.getName().compare("USER") == 0)
+	{
+		mvwprintw(_winUser, y[2]++, 1, str.c_str());
+		while (++i < 6)
+			if (i != 2)
+				y[i] = 1;
+	}
+	if (mod.getName().compare("RAM") == 0)
+	{
+		mvwprintw(_winRAM, y[3]++, 1, str.c_str());
+		while (++i < 6)
+			if (i != 3)
+				y[i] = 1;
+	}
+	if (mod.getName().compare("NET") == 0)
+	{
+		mvwprintw(_winNetwork, y[4]++, 1, str.c_str());
+		while (++i < 6)
+			if (i != 4)
+				y[i] = 1;
+	}
+	if (mod.getName().compare("CLOCK") == 0)
+	{
+		mvwprintw(_winClock, y[5]++, 1, str.c_str());
+		while (++i < 6)
+			if (i != 5)
+				y[i] = 1;
+	}
 
 }
 
