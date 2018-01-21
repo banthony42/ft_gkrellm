@@ -6,7 +6,7 @@
 /*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 11:14:42 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 12:08:33 by vnoon            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:17:09 by vnoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class AGraphical : public IMonitorDisplay {
 		virtual void		refreshVisual(void) = 0;
 		virtual void		generateModuleDisplay(AModule const &src);
 
-		virtual void		generateCurveDisplay(std::list<float> points) = 0;
+		virtual void		generateCurveDisplay(float lastPoint) = 0;
 		virtual void		generateValDisplay(float val) = 0;
 		virtual void		generateStringDisplay(std::string str) = 0;
 
