@@ -6,7 +6,7 @@
 /*   By: banthony <banthony@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 17:51:08 by banthony          #+#    #+#             */
-/*   Updated: 2018/01/21 18:04:34 by jrouthie         ###   ########.fr       */
+/*   Updated: 2018/01/21 19:01:10 by jrouthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ int main(int argc, char const *argv[])
 			graph = new Renderer();
 		while (graph->isOpen())
 		{
+			int err;
+			if ((err = glGetError()) != GL_NO_ERROR)
+			{
+				std::cout << "glerror : " << err << std::endl;
+				return (0);
+			}
+			// sleep(1);
 			graph->updateVisual();
 			graph->refreshVisual();
 		}

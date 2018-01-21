@@ -56,6 +56,11 @@ Renderer::~Renderer()
 {
 	glDeleteVertexArrays(1, &_vao);
 	glDeleteBuffers(1, &_vbo);
+	while (_modData.size())
+	{
+		delete _modData[_modData.size() - 1];
+		_modData.pop_back();
+	}
 }
 
 void Renderer::updateVisual()
@@ -203,7 +208,7 @@ Renderer::TextureData::TextureData() :
 	_dataMin(0), _dataMax(0)
 {
 	glGenTextures(1, &_tex_id);
-	for (int i = 0; i < 512; i++)
+	for (int i = 0; i < 256; i++)
 	{
 		_data[i] = 0;
 	}
@@ -218,7 +223,7 @@ void Renderer::TextureData::updateGl()
 	glTexImage1D(GL_TEXTURE_1D,
 		0,
 		GL_RED,
-		512,
+		256,
 		0,
 		GL_RED,
 		GL_FLOAT,
@@ -229,7 +234,7 @@ void Renderer::TextureData::addValue(const float val)
 {
 	_dataMin = _data[0];
 	_dataMax = _data[0];
-	for (int i = 1; i < 512; i++)
+	for (int i = 1; i < 256; i++)
 	{
 		if (_data[i] > _dataMax)
 			_dataMax = _data[i];
@@ -237,7 +242,7 @@ void Renderer::TextureData::addValue(const float val)
 			_dataMin = _data[i];
 		_data[i - 1] = _data[i];
 	}
-	_data[512 - 1] = val;
+	_data[256 - 1] = val;
 	updateGl();
 }
 
@@ -285,7 +290,7 @@ void Renderer::TextureData::setName(const std::string name)
 
 float Renderer::TextureData::operator[](unsigned int v) const
 {
-	if (v >= 512)
+	if (v >= 256)
 		return (0);
 	return (_data[v]);
 }

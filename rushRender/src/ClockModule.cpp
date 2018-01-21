@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClockModule.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vnoon <vnoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:08:33 by vnoon             #+#    #+#             */
-/*   Updated: 2018/01/21 15:24:20 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 20:56:50 by jrouthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ ClockModule const &         ClockModule::operator=(ClockModule const & rhs) {
 	return (rhs);
 }
 
-ClockModule::ClockModule(bool isActive, int ID, std::string name, int position, int len) : 
+ClockModule::ClockModule(bool isActive, int ID, std::string name, int position, int len) :
 			AModule(isActive, ID, name, position, len), _date(new char[sizeof(char) * 128]), _timebuff(new char[sizeof(char) * 128]) {
 	return;
 }
@@ -58,7 +58,7 @@ DataStruct       const           ClockModule::getData(unsigned int n) const{
 		dataToReturn.setDataType(CHAR_PTR);
 		dataToReturn.setDisplayType(STRING);
 		dataToReturn.setVarLabel("Date");
-		return (dataToReturn);	
+		return (dataToReturn);
 	}
 	else if (n == 1)
 	{
