@@ -184,7 +184,6 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 				}
 			break;
 			case NODISP:
-				std::cout << "yolo " << std::endl;
 				break;
 			default:
 				break;

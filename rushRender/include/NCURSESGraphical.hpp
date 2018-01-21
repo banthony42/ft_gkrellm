@@ -22,11 +22,11 @@ class NCURSESGraphical : public AGraphical
 {
 	public:
 		NCURSESGraphical(void);
-		virtual ~NCURSESGraphical(void);
+		~NCURSESGraphical(void);
 
 		virtual void				generateCurveDisplay(float lastPoint, std::string label, AModule const &mod);
 		virtual void				generateValDisplay(float val, std::string label, AModule const &mod);
-		virtual void				generateStringDisplay(std::string str, std::string labelm, AModule const &mod);
+		virtual void				generateStringDisplay(std::string str, std::string label, AModule const &mod);
 
 		void						updateVisual(void);
 		void						refreshVisual(void);
@@ -34,7 +34,8 @@ class NCURSESGraphical : public AGraphical
 		std::string	getCpuGraph(void) const ;
 		std::string	getRamGraph(void) const ;
 		std::string	getNetworkGraph(void) const ;
-		bool		getQuit(void) const ;
+		virtual bool		isOpen(void);
+		virtual void		close(void);
 		void		setQuit(bool const & value);
 
 	private:
@@ -50,7 +51,7 @@ class NCURSESGraphical : public AGraphical
 		std::string     *_ramGraph;
 		std::string     *_networkGraph;
 		std::string     *_clockGraph;
-		bool			_quit;
+		bool			_open;
 		int				_x;
 		int				_y;
 
