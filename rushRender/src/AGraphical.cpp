@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 11:26:26 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 18:01:49 by jrouthie         ###   ########.fr       */
+/*   Updated: 2018/01/21 20:15:16 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 	unsigned int		value = 0;
 	while (true) {
 		dataCpy = src.getData(value++);
-		if (dataCpy.getDataAddr() == NULL)
+		if (dataCpy.getDataAddr() == NULL && dataCpy.getDataType() != NODISP) {
 			break ;
+		}
 		switch (dataCpy.getDataType()) {
 			case CHAR_PTR:
 			switch (dataCpy.getDisplayType()) {
@@ -164,7 +165,6 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 					default:
 						break;
 				}
-			break;
 			case XSWUSAGE:
 				switch (dataCpy.getDisplayType()) {
 					case XSW_USAGE:
@@ -183,6 +183,9 @@ void		AGraphical::generateModuleDisplay(AModule const &src) {
 						break;
 				}
 			break;
+			case NODISP:
+				std::cout << "yolo " << std::endl;
+				break;
 			default:
 				break;
 			//ADD THROW /!\ <-NONDISPLAYABLE

@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 14:39:13 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/21 19:32:57 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 20:45:34 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void		CpuModule::updateSysInfo(void)
 			this->_totalIdle += idle;
 		}
 		this->_totalCpu = this->_totalIdle + this->_totalSystem + this->_totalUser;
-		this->_cpuAvailable = this->_totalSystem + this->_totalUser;
+		this->_cpuAvailable = (this->_totalSystem + this->_totalUser);
 		this->_cpuUsed = this->_totalCpu - this->_cpuAvailable;
 	}
 	else
@@ -171,6 +171,7 @@ void		CpuModule::updateSysInfo(void)
 		this->_totalCpu = -1;
 		this->_cpuUsed = -1;
 	}
+
 	return ;
 }
 
@@ -203,7 +204,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		int *ptr = new int;
 		*ptr = this->_activeCores;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(INT);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Number of Active Cores");
 		return (dataToReturn);
@@ -213,7 +214,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		uint32_t *ptr = new uint32_t;
 		*ptr = this->_cpuType;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(UINT32);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Cpu type");
 		return (dataToReturn);
@@ -223,9 +224,9 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		size_t *ptr = new size_t;
 		*ptr = this->_cpuUsed;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(SIZET);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
-		dataToReturn.setVarLabel("Used Cpu");
+		dataToReturn.setVarLabel("Used Cpu Cores");
 		return (dataToReturn);
 	}
 	else if (n == 5)
@@ -233,7 +234,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		size_t *ptr = new size_t;
 		*ptr = this->_totalCpu;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(SIZET);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(GRAPH);
 		dataToReturn.setVarLabel("Total Cpu");
 		return (dataToReturn);
@@ -243,7 +244,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		size_t *ptr = new size_t;
 		*ptr = this->_cpuAvailable;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(SIZET);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Cpu Available");
 		return (dataToReturn);
@@ -327,7 +328,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		size_t *ptr = new size_t;
 		*ptr = this->_totalSystem;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(SIZET);
+		dataToReturn.setDataType(NODISP);
 		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Total system Cpu Usage");
 		return (dataToReturn);
@@ -337,8 +338,8 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		size_t *ptr = new size_t;
 		*ptr = this->_totalUser;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(SIZET);
-		dataToReturn.setDisplayType(GRAPH);
+		dataToReturn.setDataType(NODISP);
+		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Total user Cpu Usage");
 		return (dataToReturn);
 	}
@@ -347,8 +348,8 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		size_t *ptr = new size_t;
 		*ptr = this->_totalIdle;
 		dataToReturn.setDataAddr(ptr);
-		dataToReturn.setDataType(SIZET);
-		dataToReturn.setDisplayType(GRAPH);
+		dataToReturn.setDataType(NODISP);
+		dataToReturn.setDisplayType(VALUE);
 		dataToReturn.setVarLabel("Total iddle Cpu Usage");
 		return (dataToReturn);
 	}
@@ -372,6 +373,16 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 		dataToReturn.setVarLabel("Minimum Core Clock");
 		return (dataToReturn);
 	}
+	else if (n == 19)
+	{
+		double *ptr = new double;
+		*ptr = this->_cpuUsage;
+		dataToReturn.setDataAddr(ptr);
+		dataToReturn.setDataType(NODISP);
+		dataToReturn.setDisplayType(GRAPH);
+		dataToReturn.setVarLabel("Cpu Usage (%)");
+		return (dataToReturn);
+	}
 	return (dataToReturn);
 }
 
@@ -389,6 +400,7 @@ uint64_t	CpuModule::getL1iCacheSize(void)	const			{ return (this->_l1iCacheSize)
 char		*CpuModule::getCpuModel(void)		const			{ return (this->_cpuModel); }
 char		*CpuModule::getCpuName(void)		const			{ return (this->_cpuName); }
 timeval		CpuModule::getBootTime(void)		const			{ return (this->_bootTime); }
+double		CpuModule::getCpuUsage(void)		const			{ return (this->_cpuUsage); }
 
 void		CpuModule::setCpuFrequency(uint64_t cpuFrequency)	{ this->_cpuFrequency = cpuFrequency; }
 void		CpuModule::setNbCores(int nbCores)					{ this->_nbCores = nbCores; }
@@ -420,6 +432,7 @@ void		CpuModule::setTotalUser(size_t totalUser)			{ this->_totalUser = totalUser
 void		CpuModule::setTotalIdle(size_t totalIdle)			{ this->_totalIdle = totalIdle; }
 void		CpuModule::setMaxCoreClock(uint64_t maxCoreClock)	{ this->_maxCoreClock = maxCoreClock; }
 void		CpuModule::setMinCoreClock(uint64_t minCoreClock)	{ this->_minCoreClock = minCoreClock; }
+void		CpuModule::getCpuUsage(double cpuUsage)				{ this->_cpuUsage = cpuUsage; }
 
 /*int		main(void)
 {
