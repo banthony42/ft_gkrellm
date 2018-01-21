@@ -6,7 +6,7 @@
 /*   By: mgras <mgras@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:17:08 by mgras             #+#    #+#             */
-/*   Updated: 2018/01/20 22:53:58 by mgras            ###   ########.fr       */
+/*   Updated: 2018/01/21 14:37:13 by mgras            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		size_t *ptr = new size_t;
 		*ptr = this->_cpuAvailable;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -246,7 +246,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l3CacheSize;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -255,7 +255,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l2CacheSize;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -264,7 +264,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l1dCacheSize;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -273,7 +273,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_l1iCacheSize;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -284,7 +284,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 			return (dataToReturn);
 		char *ptr = new char[std::strlen(this->_cpuModel) * sizeof(char)];
 		std::strcpy(ptr, this->_cpuModel);
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(CHAR_PTR);
 		dataToReturn.setDisplayType(STRING);
 		return (dataToReturn);
@@ -295,7 +295,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 			return (dataToReturn);
 		char *ptr = new char[std::strlen(this->_cpuName) * sizeof(char)];
 		std::strcpy(ptr, this->_cpuName);
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(CHAR_PTR);
 		dataToReturn.setDisplayType(STRING);
 		return (dataToReturn);
@@ -304,7 +304,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		timeval *ptr = new timeval;
 		*ptr = this->_bootTime;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(TIMEVAL);
 		dataToReturn.setDisplayType(TIME_VAL);
 		return (dataToReturn);
@@ -313,7 +313,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		size_t *ptr = new size_t;
 		*ptr = this->_totalSystem;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -322,7 +322,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		size_t *ptr = new size_t;
 		*ptr = this->_totalUser;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -331,7 +331,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		size_t *ptr = new size_t;
 		*ptr = this->_totalIdle;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(SIZET);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -340,7 +340,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_maxCoreClock;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
@@ -349,7 +349,7 @@ DataStruct const	CpuModule::getData(unsigned int n) const
 	{
 		uint64_t *ptr = new uint64_t;
 		*ptr = this->_minCoreClock;
-		dataToReturn.setDataAddr(&ptr);
+		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(UINT64);
 		dataToReturn.setDisplayType(VALUE);
 		return (dataToReturn);
