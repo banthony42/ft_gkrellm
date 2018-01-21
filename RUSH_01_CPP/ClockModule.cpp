@@ -62,7 +62,7 @@ DataStruct       const           ClockModule::getData(unsigned int n) const{
 	{
 		if (this->getTimeBuff() == NULL)
 			return (dataToReturn);
-		char *ptr = new char[sizeof(char) * std::strlen(this->getTimeBuff)];
+		char *ptr = new char[sizeof(char) * std::strlen(this->getTimeBuff())];
 		std::strcpy(ptr, this->getTimeBuff());
 		dataToReturn.setDataAddr(ptr);
 		dataToReturn.setDataType(CHAR_PTR);
