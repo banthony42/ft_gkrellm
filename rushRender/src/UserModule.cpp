@@ -46,8 +46,8 @@ void UserModule::updateSysInfo(void)
 
     try
     {
-        this->_hostname = new char[sizeof(HOST_NAME_MAX)];
-        this->_username = new char[sizeof(LOGIN_NAME_MAX)];
+	    this->_hostname = new char[sizeof(char) * HOST_NAME_MAX];
+        this->_username = new char[sizeof(char) * LOGIN_NAME_MAX];
 
         if (gethostname(this->_hostname, HOST_NAME_MAX) < 0)
             throw std::exception();
