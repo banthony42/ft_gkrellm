@@ -6,7 +6,7 @@
 /*   By: jpiniau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 22:24:39 by jpiniau           #+#    #+#             */
-/*   Updated: 2018/01/21 21:01:13 by jpiniau          ###   ########.fr       */
+/*   Updated: 2018/01/21 21:43:06 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ void						NCURSESGraphical::generateValDisplay(float val, std::string label, AMo
 
 void						NCURSESGraphical::generateStringDisplay(std::string str, std::string label, AModule const &mod)
 {
-	static int		y[6] = {1};
+	static int		y[6] = {2};
 	int				i = -1;
 
 	static_cast<void>(label);
@@ -274,42 +274,42 @@ void						NCURSESGraphical::generateStringDisplay(std::string str, std::string l
 		mvwprintw(_winCPU, y[0]++, 1, str.c_str());
 		while (++i < 6)
 			if (i != 0)
-				y[i] = 1;
+				y[i] = 2;
 	}
 	if (mod.getName().compare("OS") == 0)
 	{
 		mvwprintw(_winOS, y[1]++, 1, str.c_str());
 		while (++i < 6)
 			if (i != 1)
-				y[i] = 1;
+				y[i] = 2;
 	}
 	if (mod.getName().compare("USER") == 0)
 	{
 		mvwprintw(_winUser, y[2]++, 1, str.c_str());
 		while (++i < 6)
 			if (i != 2)
-				y[i] = 1;
+				y[i] = 2;
 	}
 	if (mod.getName().compare("RAM") == 0)
 	{
 		mvwprintw(_winRAM, y[3]++, 1, str.c_str());
 		while (++i < 6)
 			if (i != 3)
-				y[i] = 1;
+				y[i] = 2;
 	}
 	if (mod.getName().compare("NET") == 0)
 	{
 		mvwprintw(_winNetwork, y[4]++, 1, str.c_str());
 		while (++i < 6)
 			if (i != 4)
-				y[i] = 1;
+				y[i] = 2;
 	}
 	if (mod.getName().compare("CLOCK") == 0)
 	{
 		mvwprintw(_winClock, y[5]++, 1, str.c_str());
 		while (++i < 6)
 			if (i != 5)
-				y[i] = 1;
+				y[i] = 2;
 	}
 
 }
