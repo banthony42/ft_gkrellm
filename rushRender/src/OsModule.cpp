@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/utsname.h>
 #include "OsModule.hpp"
 
 OsModule::OsModule(OsModule const &copy):AModule(copy) {
@@ -45,8 +46,6 @@ OsModule::~OsModule(void) {
 
 void OsModule::updateSysInfo(void)
 {
-    struct utsname	sys;
-
     if (this->_os != NULL)
         delete [] this->_os;
     if (this->_nodeName != NULL)
@@ -59,22 +58,23 @@ void OsModule::updateSysInfo(void)
         delete [] this->_machine;
     try
     {
+		struct utsname	sys;
         if (uname(&sys) < 0)
             throw std::exception();
-        this->_os = new char[sizeof(sys.sysname)];
-        std::strncpy(this->_os, sys.sysname, sizeof(sys.sysname));
+        this->_os = new char[sizeof(char) * 256];
+        std::strncpy(this->_os, sys.sysname, sizeof(char) * std::strlen(sys.sysname));
 
-        this->_nodeName = new char[sizeof(sys.nodename)];
-        std::strncpy(this->_nodeName, sys.nodename, sizeof(sys.nodename));
+        this->_nodeName = new char[sizeof(char) * 256];
+        std::strncpy(this->_nodeName, sys.nodename, sizeof(char) * std::strlen(sys.nodename));
 
-        this->_release = new char[sizeof(sys.release)];
-        std::strncpy(this->_release, sys.release, sizeof(sys.release));
+        this->_release = new char[sizeof(char) * 256];
+        std::strncpy(this->_release, sys.release, sizeof(char) * std::strlen(sys.release));
 
-        this->_version = new char[sizeof(sys.version)];
-        std::strncpy(this->_version, sys.version, sizeof(sys.version));
-
-        this->_machine = new char[sizeof(sys.machine)];
-        std::strncpy(this->_machine, sys.machine, sizeof(sys.machine));
+/*        this->_version = new char[sizeof(char) * 256];
+        std::strncpy(this->_version, sys.version, sizeof(char) * std::strlen(sys.version));
+*/
+        this->_machine = new char[sizeof(char) * 256];
+        std::strncpy(this->_machine, sys.machine, sizeof(char) * std::strlen(sys.machine));
     }
     catch (std::exception const &e)
     {
@@ -122,7 +122,7 @@ DataStruct const OsModule::getData(unsigned int n) const
         if (this->_version == NULL)
             return (dataToReturn);
         char *ptr = new char[std::strlen(this->_version) * sizeof(char)];
-        std::strcpy(ptr, this->_version);
+        std::strncpy(ptr, this->_version, 250);
         dataToReturn.setDataAddr(ptr);
         dataToReturn.setDataType(CHAR_PTR);
         dataToReturn.setDisplayType(STRING);
