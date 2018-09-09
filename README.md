@@ -4,3 +4,7 @@ Let’s be clear : We don’t want you to fully recode GKrellM. But we want you 
 clone of it with at least a few features. This subject is not restrictive at all, so feel free
 to add whatever you feel is necessary, fun, or interesting. However, a certain number of
 mandatory steps will have to be validated first !
+
+## UML
+### Aperçu
+[![uml](https://github.com/banthony42/ft_gkrellm/blob/master/UML%20V2.png)](https://github.com/banthony42/ft_gkrellm/blob/master/UML%20V2.png)
